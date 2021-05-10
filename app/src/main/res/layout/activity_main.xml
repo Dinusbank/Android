@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@color/white"
+    tools:context=".ui.activity.MainActivity">
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/asset_logosmall"
+        android:layout_gravity="end"
+        android:layout_marginTop="18dp"
+        android:layout_marginEnd="12dp" />
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/image_preview"
+        android:layout_marginTop="160dp"
+        android:layout_gravity="center"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/poppins_bold"
+        android:text="@string/start_detect"
+        android:textColor="@color/black"
+        android:textSize="24sp"
+        android:layout_gravity="center"
+        android:layout_marginTop="14dp"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/unggah_teks"
+        android:fontFamily="@font/poppins"
+        android:textColor="@color/black"
+        android:gravity="center"
+        android:layout_gravity="center" />
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="30dp">
+
+        <Button
+            android:id="@+id/btn_upload"
+            android:layout_width="133dp"
+            android:layout_height="52dp"
+            android:layout_alignParentStart="true"
+            android:fontFamily="@font/roboto_medium"
+            android:text="@string/upload_gambar"
+            android:layout_marginStart="63dp"
+            android:textSize="@dimen/twelve_sp"
+            android:textColor="@color/white"
+            android:background="@drawable/rounded_btn2"/>
+
+        <Button
+            android:id="@+id/btn_capture"
+            android:layout_width="133dp"
+            android:layout_height="52dp"
+            android:layout_alignParentEnd="true"
+            android:fontFamily="@font/roboto_medium"
+            android:text="@string/ambil_gambar"
+            android:textSize="@dimen/twelve_sp"
+            android:layout_marginEnd="62dp"
+            android:textColor="@color/white"
+            android:background="@drawable/rounded_btn2"/>
+
+    </RelativeLayout>
+
+</LinearLayout>

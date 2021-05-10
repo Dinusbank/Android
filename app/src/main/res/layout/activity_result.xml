@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@color/bgcolor_result"
+    tools:context=".ui.activity.ResultActivity">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/asset_btnback"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true"
+            android:layout_marginTop="15dp"
+            android:layout_marginStart="14dp" />
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/asset_logosmall"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentEnd="true"
+            android:layout_marginTop="18dp"
+            android:layout_marginEnd="12dp" />
+
+    </RelativeLayout>
+
+    <ImageView
+        android:id="@+id/iv_leafes"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/leafes_preview"
+        android:layout_gravity="center"
+        android:layout_marginTop="21dp"
+        android:contentDescription="@string/image_leafes" />
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@drawable/shape_rounded"
+        android:elevation="@dimen/sixteen_dp"
+        android:layout_marginTop="47dp">
+
+        <TextView
+            android:id="@+id/tv_leafesname"
+            style="@style/LeafesText_bold"
+            android:layout_marginStart="@dimen/sixteen_dp"
+            android:layout_marginTop="@dimen/fourty_dp"
+            android:text="@string/nama_tumbuhan"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true"/>
+
+        <TextView
+            android:id="@+id/tv_leafesname_italic"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/tv_leafesname"
+            android:layout_marginStart="@dimen/sixteen_dp"
+            android:layout_marginTop="@dimen/four_dp"
+            android:fontFamily="@font/poppins"
+            android:text="@string/nama_tumbuhan"
+            android:textColor="@color/textstarter_color"
+            android:textSize="@dimen/ten_sp"
+            android:textStyle="italic" />
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/asset_rectangle"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentEnd="true"
+            android:layout_marginTop="99dp" />
+
+        <TextView
+            android:id="@+id/tv_manfaat"
+            style="@style/LeafesText_bold"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentEnd="true"
+            android:text="@string/manfaat_tumbuhan"
+            android:gravity="center"
+            android:layout_marginTop="109dp" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/tv_manfaat"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentEnd="true"
+            android:layout_marginTop="19dp"
+            android:layout_marginStart="@dimen/sixteen_dp"
+            android:layout_marginEnd="@dimen/sixteen_dp"
+            android:fontFamily="@font/roboto"
+            android:text="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec pulvinar convallis sodales. Fusce et ligula nec diam pulvinar placerat. Vestibulum pellentesque nisl nec sodales hendrerit. Nunc ultricies risus nisi, et consequat tortor tincidunt eu. Mauris suscipit, lectus sed condimentum consectetur, risus libero hendrerit lectus, ut varius magna turpis at ligula. Donec eget vulputate nulla, a ultricies purus. Nam ac varius tellus. Cras sit amet sapien mollis nulla dignissim finibus. Curabitur tempor eros augue, sit amet varius purus tincidunt nec. Etiam mollis mi felis, et gravida sapien semper vel. In tincidunt, nunc at varius luctus, nibh justo malesuada velit, ac blandit erat nibh nec mi."
+            android:textColor="@color/black"
+            android:textSize="@dimen/fourteen_sp" />
+
+    </RelativeLayout>
+
+</LinearLayout>

@@ -1,0 +1,49 @@
+<resources>
+    <string name="app_name">Tumbuhin</string>
+    <string name="upload_gambar">Upload Gambar</string>
+    <string name="ambil_gambar">Ambil Gambar</string>
+    <string name="nama_tumbuhan">Nama Tumbuhan</string>
+    <string name="manfaat_tumbuhan">Manfaat Tumbuhan</string>
+    <string name="image_leafes">image leafes</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="tumbuhin_logo">Tumbuhin Logo</string>
+    <string name="project_by">
+        A Project by
+        <br>
+        Dinusbank Team
+        </br>
+    </string>
+    <string name="splash2_text">
+        Unggah atau Ambil gambar
+        <br>
+        tanaman disekitarmu…
+        </br>
+    </string>
+    <string name="unggah_teks">
+        Unggah atau Ambil gambar
+        <br>
+        tanaman disekitarmu
+        </br>
+    </string>
+    <string name="start_detect">Yuk mulai Deteksi!</string>
+    <string name="start">Mulai</string>
+    <string name="text_starter">
+        ..atau cari tanaman yang
+        <br>
+        mungkin bisa jadi solusi atas
+        </br>
+        <br>
+        keluhanmu…
+        </br>
+    </string>
+    <string name="text_starter2">
+        …dan simsalabim,
+        <br>
+        kamu bisa tahu apa saja
+        </br>
+        <br>
+        manfaat tanaman tersebut!
+        </br>
+    </string>
+</resources>
