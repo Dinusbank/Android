@@ -18,10 +18,12 @@
         android:layout_marginEnd="12dp" />
 
     <ImageView
-        android:layout_width="378dp"
+        android:layout_width="match_parent"
         android:layout_height="35dp"
         android:src="@drawable/searchbar_guidescreen"
         android:scaleType="centerCrop"
+        android:layout_marginStart="@dimen/sixteen_dp"
+        android:layout_marginEnd="@dimen/sixteen_dp"
         android:layout_gravity="center"
         android:layout_marginTop="71dp"/>
 
@@ -34,7 +36,7 @@
         android:layout_marginTop="47dp" />
 
     <TextView
-        android:layout_width="295dp"
+        android:layout_width="match_parent"
         android:layout_height="81dp"
         android:fontFamily="@font/poppins"
         android:textSize="18sp"

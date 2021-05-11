@@ -46,4 +46,14 @@
         manfaat tanaman tersebut!
         </br>
     </string>
+    <string name="desc_app">Versi 1.0.0 | TUMBUHIN APP</string>
+    <string name="search_error">
+        Ups… Pencarian tidak ditemukan, silahkan coba
+        <br>
+        lagi dengan kata kunci lain
+        </br>
+    </string>
+    <string name="title_home">Home</string>
+    <string name="title_search">Search</string>
+    <string name="title_info">Info</string>
 </resources>

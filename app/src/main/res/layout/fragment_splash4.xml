@@ -18,14 +18,16 @@
         android:layout_marginEnd="12dp" />
 
     <ImageView
-        android:layout_width="378dp"
+        android:layout_width="match_parent"
         android:layout_height="304dp"
+        android:layout_marginStart="@dimen/sixteen_dp"
+        android:layout_marginEnd="@dimen/sixteen_dp"
         android:src="@drawable/manfaat_guidescreen_3"
         android:layout_marginTop="59dp"
         android:layout_gravity="center" />
 
     <TextView
-        android:layout_width="295dp"
+        android:layout_width="match_parent"
         android:layout_height="81dp"
         android:fontFamily="@font/poppins"
         android:textColor="@color/textstarter_color"
