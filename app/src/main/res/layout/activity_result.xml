@@ -7,7 +7,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:background="@color/bgcolor_result"
-    tools:context=".ui.activity.ResultActivity">
+    tools:context=".ui.ResultActivity">
 
     <RelativeLayout
         android:layout_width="match_parent"

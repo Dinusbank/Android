@@ -10,7 +10,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Tumbuhin">
         <activity android:name=".ui.splash.MainSplashActivity" />
-        <activity android:name=".ui.activity.ResultActivity" />
+        <activity android:name=".ui.ResultActivity" />
         <activity android:name=".ui.splash.SplashActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -18,7 +18,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".ui.activity.MainActivity" />
+        <activity android:name=".ui.main.MainActivity" />
 
         <meta-data
             android:name="preloaded_fonts"
