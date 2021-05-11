@@ -9,23 +9,25 @@
     tools:context=".ui.splash.SplashFragment2">
 
     <ImageView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:src="@drawable/asset_logosmall"
+        android:layout_width="68dp"
+        android:layout_height="31dp"
+        android:src="@drawable/logo_main"
         android:layout_gravity="end"
+        android:scaleType="centerCrop"
         android:layout_marginTop="18dp"
         android:layout_marginEnd="12dp"/>
 
     <ImageView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:src="@drawable/image_starter1"
+        android:layout_width="363dp"
+        android:layout_height="282dp"
+        android:src="@drawable/vector_guidescreen_1"
         android:layout_gravity="center"
+        android:scaleType="centerCrop"
         android:layout_marginTop="145dp"/>
 
     <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="295dp"
+        android:layout_height="54dp"
         android:fontFamily="@font/poppins"
         android:textSize="18sp"
         android:textColor="@color/textstarter_color"
@@ -39,9 +41,9 @@
         android:layout_height="wrap_content">
 
         <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@drawable/progress_icon"
+            android:layout_width="67dp"
+            android:layout_height="16dp"
+            android:src="@drawable/progress_icon_1"
             android:layout_marginTop="61dp"
             android:layout_alignParentStart="true"
             android:layout_alignParentTop="true"
@@ -49,9 +51,10 @@
 
         <ImageView
             android:id="@+id/btn_next1"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@drawable/asset_btn"
+            android:layout_width="60dp"
+            android:layout_height="40dp"
+            android:src="@drawable/nextbutton_guidescreen"
+            android:scaleType="centerCrop"
             android:layout_marginTop="49dp"
             android:layout_marginEnd="@dimen/sixteen_dp"
             android:layout_alignParentEnd="true"/>

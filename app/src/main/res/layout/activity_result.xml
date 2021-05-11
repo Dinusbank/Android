@@ -14,18 +14,20 @@
         android:layout_height="wrap_content">
 
         <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@drawable/asset_btnback"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:src="@drawable/backbutton_detailpage"
+            android:scaleType="centerCrop"
             android:layout_alignParentStart="true"
             android:layout_alignParentTop="true"
             android:layout_marginTop="15dp"
             android:layout_marginStart="14dp" />
 
         <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@drawable/asset_logosmall"
+            android:layout_width="68dp"
+            android:layout_height="31dp"
+            android:src="@drawable/logo_main"
+            android:scaleType="centerCrop"
             android:layout_alignParentTop="true"
             android:layout_alignParentEnd="true"
             android:layout_marginTop="18dp"

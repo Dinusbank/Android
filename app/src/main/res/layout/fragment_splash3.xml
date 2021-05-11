@@ -9,30 +9,33 @@
     tools:context=".ui.splash.SplashFragment3">
 
     <ImageView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:src="@drawable/asset_logosmall"
+        android:layout_width="68dp"
+        android:layout_height="31dp"
+        android:src="@drawable/logo_main"
+        android:scaleType="centerCrop"
         android:layout_gravity="end"
         android:layout_marginTop="18dp"
         android:layout_marginEnd="12dp" />
 
     <ImageView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:src="@drawable/image_starter2"
+        android:layout_width="378dp"
+        android:layout_height="35dp"
+        android:src="@drawable/searchbar_guidescreen"
+        android:scaleType="centerCrop"
         android:layout_gravity="center"
         android:layout_marginTop="71dp"/>
 
     <ImageView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:src="@drawable/image_starter3"
+        android:layout_width="299dp"
+        android:layout_height="277dp"
+        android:src="@drawable/vector_guidescreen_2"
+        android:scaleType="centerCrop"
         android:layout_gravity="center"
         android:layout_marginTop="47dp" />
 
     <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="295dp"
+        android:layout_height="81dp"
         android:fontFamily="@font/poppins"
         android:textSize="18sp"
         android:text="@string/text_starter"
@@ -46,9 +49,9 @@
         android:layout_height="wrap_content">
 
         <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@drawable/progress_icon"
+            android:layout_width="67dp"
+            android:layout_height="@dimen/sixteen_dp"
+            android:src="@drawable/progress_icon_2"
             android:layout_alignParentStart="true"
             android:layout_alignParentTop="true"
             android:layout_marginTop="43dp"
@@ -56,10 +59,11 @@
 
         <ImageView
             android:id="@+id/btn_next2"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@drawable/asset_btn"
+            android:layout_width="60dp"
+            android:layout_height="40dp"
+            android:src="@drawable/nextbutton_guidescreen"
             android:layout_alignParentEnd="true"
+            android:scaleType="centerCrop"
             android:layout_alignParentTop="true"
             android:layout_marginTop="31dp"
             android:layout_marginEnd="@dimen/sixteen_dp" />
