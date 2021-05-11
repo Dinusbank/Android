@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginTop="10dp"
+    android:background="@drawable/logo_frame"
+    android:layout_marginStart="17dp"
+    android:layout_marginEnd="17dp">
+
+    <TextView
+        android:id="@+id/tv_leafesname"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/names_plant"
+        android:layout_marginTop="10dp"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginStart="@dimen/sixteen_dp"
+        android:fontFamily="@font/poppins_bold"
+        android:textColor="@color/textstarter_color"
+        android:textSize="18sp"
+        tools:ignore="RelativeOverlap" />
+
+    <TextView
+        android:id="@+id/tv_leafesname_italic"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_marginStart="@dimen/sixteen_dp"
+        android:fontFamily="@font/poppins"
+        android:text="@string/latin_names"
+        android:textColor="@color/textstarter_color"
+        android:textSize="@dimen/ten_sp"
+        android:textStyle="italic"
+        android:layout_below="@id/tv_leafesname"/>
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/ic_arrow_right"
+        android:layout_marginTop="25dp"
+        android:layout_marginBottom="25dp"
+        android:layout_marginEnd="25dp"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentTop="true"
+        android:contentDescription="@string/arrow_right" />
+
+</RelativeLayout>

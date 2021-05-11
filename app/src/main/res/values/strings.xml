@@ -66,4 +66,7 @@
     <string name="progress_icon">Progress Icon</string>
     <string name="next_button">Next Button</string>
     <string name="search_box">Search Box</string>
+    <string name="latin_names">Nama Latin Tumbuhan</string>
+    <string name="names_plant">Nama Tumbuhan</string>
+    <string name="arrow_right">Arrow Right</string>
 </resources>
