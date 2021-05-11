@@ -15,7 +15,8 @@
         android:scaleType="centerCrop"
         android:layout_gravity="end"
         android:layout_marginTop="19dp"
-        android:layout_marginEnd="12dp" />
+        android:layout_marginEnd="12dp"
+        android:contentDescription="@string/small_logo" />
 
     <ImageView
         android:layout_width="match_parent"
@@ -24,7 +25,8 @@
         android:layout_marginEnd="@dimen/sixteen_dp"
         android:src="@drawable/manfaat_guidescreen_3"
         android:layout_marginTop="59dp"
-        android:layout_gravity="center" />
+        android:layout_gravity="center"
+        android:contentDescription="@string/guide_picture" />
 
     <TextView
         android:layout_width="match_parent"
@@ -49,7 +51,8 @@
             android:layout_alignParentStart="true"
             android:layout_alignParentTop="true"
             android:layout_marginStart="@dimen/sixteen_dp"
-            android:layout_marginTop="44dp" />
+            android:layout_marginTop="44dp"
+            android:contentDescription="@string/progress_icon" />
 
         <ImageView
             android:id="@+id/btn_next3"
@@ -60,7 +63,8 @@
             android:layout_alignParentEnd="true"
             android:layout_alignParentTop="true"
             android:layout_marginEnd="@dimen/sixteen_dp"
-            android:layout_marginTop="32dp" />
+            android:layout_marginTop="32dp"
+            android:contentDescription="@string/next_button" />
 
     </RelativeLayout>
 

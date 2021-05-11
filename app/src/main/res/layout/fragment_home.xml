@@ -14,7 +14,8 @@
         android:scaleType="centerCrop"
         android:src="@drawable/logo_main"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        android:contentDescription="@string/small_logo" />
 
     <ImageView
         android:id="@+id/imageView"
@@ -27,7 +28,8 @@
         android:src="@drawable/vector_home"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        android:contentDescription="@string/start_detection" />
 
     <TextView
         android:id="@+id/textView"

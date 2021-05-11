@@ -15,7 +15,8 @@
         android:scaleType="centerCrop"
         android:layout_gravity="end"
         android:layout_marginTop="18dp"
-        android:layout_marginEnd="12dp" />
+        android:layout_marginEnd="12dp"
+        android:contentDescription="@string/small_logo" />
 
     <ImageView
         android:layout_width="match_parent"
@@ -25,7 +26,8 @@
         android:layout_marginStart="@dimen/sixteen_dp"
         android:layout_marginEnd="@dimen/sixteen_dp"
         android:layout_gravity="center"
-        android:layout_marginTop="71dp"/>
+        android:layout_marginTop="71dp"
+        android:contentDescription="@string/search_box" />
 
     <ImageView
         android:layout_width="299dp"
@@ -33,7 +35,8 @@
         android:src="@drawable/vector_guidescreen_2"
         android:scaleType="centerCrop"
         android:layout_gravity="center"
-        android:layout_marginTop="47dp" />
+        android:layout_marginTop="47dp"
+        android:contentDescription="@string/guide_picture" />
 
     <TextView
         android:layout_width="match_parent"
@@ -57,7 +60,8 @@
             android:layout_alignParentStart="true"
             android:layout_alignParentTop="true"
             android:layout_marginTop="43dp"
-            android:layout_marginStart="@dimen/sixteen_dp"/>
+            android:layout_marginStart="@dimen/sixteen_dp"
+            android:contentDescription="@string/progress_icon" />
 
         <ImageView
             android:id="@+id/btn_next2"
@@ -68,7 +72,8 @@
             android:scaleType="centerCrop"
             android:layout_alignParentTop="true"
             android:layout_marginTop="31dp"
-            android:layout_marginEnd="@dimen/sixteen_dp" />
+            android:layout_marginEnd="@dimen/sixteen_dp"
+            android:contentDescription="@string/next_button" />
 
     </RelativeLayout>
 

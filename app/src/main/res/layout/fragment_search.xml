@@ -17,7 +17,8 @@
         android:scaleType="centerCrop"
         android:src="@drawable/logo_main"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        android:contentDescription="@string/small_logo" />
 
     <androidx.appcompat.widget.SearchView
         android:id="@+id/search_view"
@@ -44,7 +45,8 @@
         android:src="@drawable/vector_search_error"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/search_view" />
+        app:layout_constraintTop_toBottomOf="@+id/search_view"
+        android:contentDescription="@string/error_image" />
 
     <TextView
         android:layout_width="match_parent"

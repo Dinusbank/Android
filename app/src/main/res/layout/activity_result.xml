@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -21,7 +20,8 @@
             android:layout_alignParentStart="true"
             android:layout_alignParentTop="true"
             android:layout_marginTop="15dp"
-            android:layout_marginStart="14dp" />
+            android:layout_marginStart="14dp"
+            android:contentDescription="@string/back_button" />
 
         <ImageView
             android:layout_width="68dp"
@@ -31,7 +31,8 @@
             android:layout_alignParentTop="true"
             android:layout_alignParentEnd="true"
             android:layout_marginTop="18dp"
-            android:layout_marginEnd="12dp" />
+            android:layout_marginEnd="12dp"
+            android:contentDescription="@string/small_logo" />
 
     </RelativeLayout>
 
@@ -80,7 +81,8 @@
             android:layout_alignParentTop="true"
             android:layout_alignParentStart="true"
             android:layout_alignParentEnd="true"
-            android:layout_marginTop="99dp" />
+            android:layout_marginTop="99dp"
+            android:contentDescription="@string/rectangle" />
 
         <TextView
             android:id="@+id/tv_manfaat"
@@ -102,7 +104,7 @@
             android:layout_marginStart="@dimen/sixteen_dp"
             android:layout_marginEnd="@dimen/sixteen_dp"
             android:fontFamily="@font/roboto"
-            android:text="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec pulvinar convallis sodales. Fusce et ligula nec diam pulvinar placerat. Vestibulum pellentesque nisl nec sodales hendrerit. Nunc ultricies risus nisi, et consequat tortor tincidunt eu. Mauris suscipit, lectus sed condimentum consectetur, risus libero hendrerit lectus, ut varius magna turpis at ligula. Donec eget vulputate nulla, a ultricies purus. Nam ac varius tellus. Cras sit amet sapien mollis nulla dignissim finibus. Curabitur tempor eros augue, sit amet varius purus tincidunt nec. Etiam mollis mi felis, et gravida sapien semper vel. In tincidunt, nunc at varius luctus, nibh justo malesuada velit, ac blandit erat nibh nec mi."
+            android:text="@string/lorem_ipsum"
             android:textColor="@color/black"
             android:textSize="@dimen/fourteen_sp" />
 

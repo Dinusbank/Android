@@ -56,4 +56,14 @@
     <string name="title_home">Home</string>
     <string name="title_search">Search</string>
     <string name="title_info">Info</string>
+    <string name="back_button">Back Button</string>
+    <string name="small_logo">Small Logo</string>
+    <string name="rectangle">rectangle</string>
+    <string name="lorem_ipsum">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec pulvinar convallis sodales. Fusce et ligula nec diam pulvinar placerat. Vestibulum pellentesque nisl nec sodales hendrerit. Nunc ultricies risus nisi, et consequat tortor tincidunt eu. Mauris suscipit, lectus sed condimentum consectetur, risus libero hendrerit lectus, ut varius magna turpis at ligula. Donec eget vulputate nulla, a ultricies purus. Nam ac varius tellus. Cras sit amet sapien mollis nulla dignissim finibus. Curabitur tempor eros augue, sit amet varius purus tincidunt nec. Etiam mollis mi felis, et gravida sapien semper vel. In tincidunt, nunc at varius luctus, nibh justo malesuada velit, ac blandit erat nibh nec mi.</string>
+    <string name="start_detection">Start Detection</string>
+    <string name="error_image">Error Image</string>
+    <string name="guide_picture">Guide Picture</string>
+    <string name="progress_icon">Progress Icon</string>
+    <string name="next_button">Next Button</string>
+    <string name="search_box">Search Box</string>
 </resources>
