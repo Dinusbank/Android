@@ -1,3 +1,5 @@
+@file:Suppress("DEPRECATION")
+
 package com.dinusbank.tumbuhin.ui.main
 
 import androidx.appcompat.app.AppCompatActivity
