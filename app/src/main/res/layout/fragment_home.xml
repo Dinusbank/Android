@@ -51,7 +51,7 @@
         android:fontFamily="@font/poppins"
         android:gravity="center"
         android:text="@string/unggah_teks"
-        android:textColor="@color/black"
+        android:textColor="@color/font_color"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView" />

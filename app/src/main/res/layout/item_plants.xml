@@ -18,7 +18,7 @@
         android:layout_alignParentTop="true"
         android:layout_marginStart="@dimen/sixteen_dp"
         android:fontFamily="@font/poppins_bold"
-        android:textColor="@color/textstarter_color"
+        android:textColor="@color/font_color"
         android:textSize="18sp"
         tools:ignore="RelativeOverlap" />
 
@@ -30,7 +30,7 @@
         android:layout_marginStart="@dimen/sixteen_dp"
         android:fontFamily="@font/poppins"
         android:text="@string/latin_names"
-        android:textColor="@color/textstarter_color"
+        android:textColor="@color/font_color"
         android:textSize="@dimen/ten_sp"
         android:textStyle="italic"
         android:layout_below="@id/tv_leafesname"/>

@@ -20,6 +20,6 @@
         <item name="fontFamily">@font/poppins_bold</item>
         <item name="android:textSize">@dimen/fourteen_sp</item>
         <item name="android:textStyle">bold</item>
-        <item name="android:textColor">@color/textstarter_color</item>
+        <item name="android:textColor">@color/font_color</item>
     </style>
 </resources>

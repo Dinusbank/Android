@@ -70,7 +70,7 @@
             android:layout_marginTop="@dimen/four_dp"
             android:fontFamily="@font/poppins"
             android:text="@string/nama_tumbuhan"
-            android:textColor="@color/textstarter_color"
+            android:textColor="@color/font_color"
             android:textSize="@dimen/ten_sp"
             android:textStyle="italic" />
 
@@ -105,7 +105,7 @@
             android:layout_marginEnd="@dimen/sixteen_dp"
             android:fontFamily="@font/roboto"
             android:text="@string/lorem_ipsum"
-            android:textColor="@color/black"
+            android:textColor="@color/font_color"
             android:textSize="@dimen/fourteen_sp" />
 
     </RelativeLayout>

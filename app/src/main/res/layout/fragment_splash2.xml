@@ -33,7 +33,7 @@
         android:layout_height="54dp"
         android:fontFamily="@font/poppins"
         android:textSize="18sp"
-        android:textColor="@color/textstarter_color"
+        android:textColor="@color/font_color"
         android:text="@string/splash2_text"
         android:gravity="center"
         android:layout_gravity="center"
