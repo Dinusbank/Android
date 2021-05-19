@@ -5,7 +5,6 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import com.dinusbank.tumbuhin.R
 import com.dinusbank.tumbuhin.databinding.FragmentSearchBinding
 
 class SearchFragment : Fragment() {
@@ -24,19 +23,20 @@ class SearchFragment : Fragment() {
     }
 
     private fun setSearchView(){
-        binding.searchView.onActionViewExpanded()
-        binding.searchView.setIconifiedByDefault(true)
+        with(binding.searchView){
+            onActionViewExpanded()
+            setIconifiedByDefault(true)
+            clearFocus()
 
-//        binding.searchView.setOnQueryTextListener(object : androidx.appcompat.widget.SearchView.OnQueryTextListener{
-//            override fun onQueryTextSubmit(query: String?): Boolean {
-//                TODO("Not yet implemented")
-//            }
+//            setOnQueryTextListener(object : androidx.appcompat.widget.SearchView.OnQueryTextListener{
+//                override fun onQueryTextSubmit(query: String?): Boolean {
+//                    TODO("Not yet implemented")
+//                }
 //
-//            override fun onQueryTextChange(newText: String?): Boolean {
-//                TODO("Not yet implemented")
-//            }
-//
-//        })
+//                override fun onQueryTextChange(newText: String?): Boolean {
+//                    TODO("Not yet implemented")
+//                }
+//            })
+        }
     }
-
 }

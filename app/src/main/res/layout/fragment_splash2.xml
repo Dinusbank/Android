@@ -30,9 +30,11 @@
 
     <TextView
         android:layout_width="match_parent"
-        android:layout_height="54dp"
+        android:layout_height="wrap_content"
         android:fontFamily="@font/poppins"
         android:textSize="18sp"
+        android:layout_marginStart="@dimen/sixteen_dp"
+        android:layout_marginEnd="@dimen/sixteen_dp"
         android:textColor="@color/font_color"
         android:text="@string/splash2_text"
         android:gravity="center"
@@ -41,7 +43,9 @@
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/sixteen_dp"
+        android:layout_marginEnd="@dimen/sixteen_dp">
 
         <ImageView
             android:layout_width="67dp"
@@ -50,7 +54,6 @@
             android:layout_marginTop="61dp"
             android:layout_alignParentStart="true"
             android:layout_alignParentTop="true"
-            android:layout_marginStart="@dimen/sixteen_dp"
             android:contentDescription="@string/progress_icon" />
 
         <ImageView
@@ -60,7 +63,6 @@
             android:src="@drawable/nextbutton_guidescreen"
             android:scaleType="centerCrop"
             android:layout_marginTop="49dp"
-            android:layout_marginEnd="@dimen/sixteen_dp"
             android:layout_alignParentEnd="true"
             android:contentDescription="@string/next_button" />
 
