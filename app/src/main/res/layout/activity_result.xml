@@ -13,15 +13,16 @@
         android:layout_height="wrap_content">
 
         <ImageView
-            android:layout_width="50dp"
-            android:layout_height="50dp"
-            android:src="@drawable/backbutton_detailpage"
-            android:scaleType="centerCrop"
+            android:id="@+id/btn_back"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
             android:layout_alignParentStart="true"
             android:layout_alignParentTop="true"
-            android:layout_marginTop="15dp"
             android:layout_marginStart="14dp"
-            android:contentDescription="@string/back_button" />
+            android:layout_marginTop="15dp"
+            android:contentDescription="@string/back_button"
+            android:scaleType="centerCrop"
+            android:src="@drawable/backbutton_detailpage" />
 
         <ImageView
             android:layout_width="68dp"
@@ -38,76 +39,83 @@
 
     <ImageView
         android:id="@+id/iv_leafes"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="250dp"
+        android:layout_height="250dp"
+        android:scaleType="centerCrop"
         android:src="@drawable/leafes_preview"
         android:layout_gravity="center"
         android:layout_marginTop="21dp"
         android:contentDescription="@string/image_leafes" />
 
-    <RelativeLayout
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="@drawable/shape_rounded"
-        android:elevation="@dimen/sixteen_dp"
+        android:layout_height="wrap_content"
         android:layout_marginTop="47dp">
 
-        <TextView
-            android:id="@+id/tv_leafesname"
-            style="@style/LeafesText_bold"
-            android:layout_marginStart="@dimen/sixteen_dp"
-            android:layout_marginTop="@dimen/fourty_dp"
-            android:text="@string/nama_tumbuhan"
-            android:layout_alignParentStart="true"
-            android:layout_alignParentTop="true"/>
-
-        <TextView
-            android:id="@+id/tv_leafesname_italic"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/tv_leafesname"
-            android:layout_marginStart="@dimen/sixteen_dp"
-            android:layout_marginTop="@dimen/four_dp"
-            android:fontFamily="@font/poppins"
-            android:text="@string/nama_tumbuhan"
-            android:textColor="@color/font_color"
-            android:textSize="@dimen/ten_sp"
-            android:textStyle="italic" />
-
-        <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@drawable/asset_rectangle"
-            android:layout_alignParentTop="true"
-            android:layout_alignParentStart="true"
-            android:layout_alignParentEnd="true"
-            android:layout_marginTop="99dp"
-            android:contentDescription="@string/rectangle" />
-
-        <TextView
-            android:id="@+id/tv_manfaat"
-            style="@style/LeafesText_bold"
-            android:layout_alignParentTop="true"
-            android:layout_alignParentStart="true"
-            android:layout_alignParentEnd="true"
-            android:text="@string/manfaat_tumbuhan"
-            android:gravity="center"
-            android:layout_marginTop="109dp" />
-
-        <TextView
+        <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@id/tv_manfaat"
-            android:layout_alignParentStart="true"
-            android:layout_alignParentEnd="true"
-            android:layout_marginTop="19dp"
-            android:layout_marginStart="@dimen/sixteen_dp"
-            android:layout_marginEnd="@dimen/sixteen_dp"
-            android:fontFamily="@font/roboto"
-            android:text="@string/lorem_ipsum"
-            android:textColor="@color/font_color"
-            android:textSize="@dimen/fourteen_sp" />
+            android:background="@drawable/shape_rounded"
+            android:elevation="@dimen/sixteen_dp">
 
-    </RelativeLayout>
+            <TextView
+                android:id="@+id/tv_leafesname"
+                style="@style/LeafesText_bold"
+                android:layout_marginStart="@dimen/sixteen_dp"
+                android:layout_marginTop="@dimen/fourty_dp"
+                android:text="@string/nama_tumbuhan"
+                android:layout_alignParentStart="true"
+                android:layout_alignParentTop="true"/>
+
+            <TextView
+                android:id="@+id/tv_leafesname_italic"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/tv_leafesname"
+                android:layout_marginStart="@dimen/sixteen_dp"
+                android:layout_marginTop="@dimen/four_dp"
+                android:fontFamily="@font/poppins"
+                android:text="@string/nama_tumbuhan"
+                android:textColor="@color/font_color"
+                android:textSize="@dimen/ten_sp"
+                android:textStyle="italic" />
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/asset_rectangle"
+                android:layout_alignParentTop="true"
+                android:layout_alignParentStart="true"
+                android:layout_alignParentEnd="true"
+                android:layout_marginTop="99dp"
+                android:contentDescription="@string/rectangle" />
+
+            <TextView
+                android:id="@+id/tv_manfaat"
+                style="@style/LeafesText_bold"
+                android:layout_alignParentTop="true"
+                android:layout_alignParentStart="true"
+                android:layout_alignParentEnd="true"
+                android:text="@string/manfaat_tumbuhan"
+                android:gravity="center"
+                android:layout_marginTop="109dp" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/tv_manfaat"
+                android:layout_alignParentStart="true"
+                android:layout_alignParentEnd="true"
+                android:layout_marginTop="19dp"
+                android:layout_marginStart="@dimen/sixteen_dp"
+                android:layout_marginEnd="@dimen/sixteen_dp"
+                android:fontFamily="@font/roboto"
+                android:text="@string/lorem_ipsum"
+                android:textColor="@color/font_color"
+                android:textSize="@dimen/fourteen_sp" />
+
+        </RelativeLayout>
+
+    </ScrollView>
 
 </LinearLayout>
