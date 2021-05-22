@@ -72,4 +72,5 @@
     <string name="manfaat_example">Kesehatan gigi, Mengobati tukak lambung, Mencegah kanker, Mengusir hama, Mengusir ketombe, Menghilangkan kutu rambut, Mencegah penuaan dini.</string>
     <string name="composition">Komposisi Tumbuhan</string>
     <string name="composition_example">mengandung senyawa golongan flavonoid, tannin, saponin, terpenoid, alkaloid, asam lemak, steroid dan triterpenoid.</string>
+    <string name="search_hint">Cari Jenis Penyakit atau Tumbuhan Herbal...</string>
 </resources>

@@ -30,6 +30,22 @@ class SearchViewModel: ViewModel() {
         })
     }
 
+    fun getSearch(search: String){
+        val response = ApiCall.leafesApiService.getSearch(search)
+        response.enqueue(object : Callback<ResponseLeafes>{
+            override fun onResponse(call: Call<ResponseLeafes>, response: Response<ResponseLeafes>) {
+                val listDataLeafes = response.body()?.result
+
+                listLeafesMutable.postValue(listDataLeafes)
+            }
+
+            override fun onFailure(call: Call<ResponseLeafes>, t: Throwable) {
+                TODO("Not yet implemented")
+            }
+
+        })
+    }
+
     fun getSearchViewModel(): LiveData<ArrayList<ResponseDataLeafes>>{
         return listLeafesMutable
     }

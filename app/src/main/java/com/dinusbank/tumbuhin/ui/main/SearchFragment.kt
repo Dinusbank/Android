@@ -17,6 +17,7 @@ class SearchFragment : Fragment() {
     private lateinit var binding: FragmentSearchBinding
     private lateinit var searchViewModel: SearchViewModel
     private lateinit var leafesAdapter: LeafesAdapter
+    private val listLeafes = ArrayList<ResponseDataLeafes>()
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         binding = FragmentSearchBinding.inflate(inflater, container, false)
@@ -35,7 +36,6 @@ class SearchFragment : Fragment() {
 
         searchViewModel.getSearchViewModel().observe(requireActivity(), {listDataLeafes ->
             setAdapter()
-
             if (listDataLeafes != null){
                 leafesAdapter.setData(listDataLeafes)
             }
@@ -45,8 +45,11 @@ class SearchFragment : Fragment() {
     }
 
     private fun setAdapter(){
-        binding.leafesAdapter.adapter = leafesAdapter
-        binding.leafesAdapter.layoutManager = LinearLayoutManager(context)
+        with(binding.leafesAdapter){
+            adapter = leafesAdapter
+            leafesAdapter = LeafesAdapter(listLeafes)
+            layoutManager = LinearLayoutManager(context)
+        }
     }
 
     private fun setSearchView(){
@@ -55,15 +58,29 @@ class SearchFragment : Fragment() {
             setIconifiedByDefault(true)
             clearFocus()
 
-//            setOnQueryTextListener(object : androidx.appcompat.widget.SearchView.OnQueryTextListener{
-//                override fun onQueryTextSubmit(query: String?): Boolean {
-//                    TODO("Not yet implemented")
-//                }
-//
-//                override fun onQueryTextChange(newText: String?): Boolean {
-//                    TODO("Not yet implemented")
-//                }
-//            })
+            setOnQueryTextListener(object : androidx.appcompat.widget.SearchView.OnQueryTextListener{
+                override fun onQueryTextSubmit(query: String?): Boolean {
+
+                    return false
+                }
+
+                override fun onQueryTextChange(newText: String?): Boolean {
+                    if (newText.isNullOrEmpty()){
+                        listLeafes.clear()
+                        binding.imageView3.visibility = View.VISIBLE
+                        binding.textNull.visibility = View.VISIBLE
+                    } else{
+                        binding.leafesAdapter.visibility = View.GONE
+                        listLeafes.clear()
+                        searchViewModel.getSearch(newText)
+                        binding.leafesAdapter.visibility = View.VISIBLE
+                        binding.imageView3.visibility = View.GONE
+                        binding.textNull.visibility = View.GONE
+                    }
+
+                    return true
+                }
+            })
         }
     }
 }
