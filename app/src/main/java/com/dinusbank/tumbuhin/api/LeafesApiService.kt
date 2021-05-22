@@ -8,6 +8,4 @@ import retrofit2.http.GET
 interface LeafesApiService {
     @GET("/")
     fun getLeafes(): Call<ResponseLeafes>
-
-    fun getDetailLeafes(): Call<ResponseDataLeafes>
 }
