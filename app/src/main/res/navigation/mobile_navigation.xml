@@ -13,7 +13,7 @@
         <action
             android:id="@+id/action_splashFragment1_to_splashFragment2"
             app:destination="@id/splashFragment2"
-            app:enterAnim="@anim/fragment_open_enter" />
+            app:enterAnim="@anim/nav_default_enter_anim" />
     </fragment>
 
     <fragment
@@ -24,7 +24,7 @@
         <action
             android:id="@+id/action_splashFragment2_to_splashFragment3"
             app:destination="@id/splashFragment3"
-            app:enterAnim="@anim/fragment_open_enter" />
+            app:enterAnim="@anim/nav_default_enter_anim" />
     </fragment>
 
     <fragment
@@ -35,7 +35,7 @@
         <action
             android:id="@+id/action_splashFragment3_to_splashFragment4"
             app:destination="@id/splashFragment4"
-            app:enterAnim="@anim/fragment_open_enter" />
+            app:enterAnim="@anim/nav_default_enter_anim" />
     </fragment>
 
     <fragment
@@ -46,7 +46,7 @@
         <action
             android:id="@+id/action_splashFragment4_to_mainActivity"
             app:destination="@id/mainActivity"
-            app:enterAnim="@anim/fragment_open_enter" />
+            app:enterAnim="@anim/nav_default_enter_anim" />
     </fragment>
     <activity
         android:id="@+id/mainActivity"

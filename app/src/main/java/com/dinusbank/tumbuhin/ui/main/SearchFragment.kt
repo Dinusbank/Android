@@ -5,11 +5,18 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.lifecycle.ViewModelProvider
+import androidx.recyclerview.widget.LinearLayoutManager
+import com.dinusbank.tumbuhin.adapter.LeafesAdapter
+import com.dinusbank.tumbuhin.data.ResponseDataLeafes
 import com.dinusbank.tumbuhin.databinding.FragmentSearchBinding
+import com.dinusbank.tumbuhin.viewmodel.SearchViewModel
 
 class SearchFragment : Fragment() {
 
     private lateinit var binding: FragmentSearchBinding
+    private lateinit var searchViewModel: SearchViewModel
+    private lateinit var leafesAdapter: LeafesAdapter
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         binding = FragmentSearchBinding.inflate(inflater, container, false)
@@ -19,7 +26,27 @@ class SearchFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        searchViewModel = ViewModelProvider(requireActivity(), ViewModelProvider.NewInstanceFactory())
+            .get(SearchViewModel::class.java)
+
+        searchViewModel.getLeafes()
+
+        leafesAdapter = LeafesAdapter(mutableListOf<ResponseDataLeafes>() as ArrayList<ResponseDataLeafes>)
+
+        searchViewModel.getSearchViewModel().observe(requireActivity(), {listDataLeafes ->
+            setAdapter()
+
+            if (listDataLeafes != null){
+                leafesAdapter.setData(listDataLeafes)
+            }
+        })
+
         setSearchView()
+    }
+
+    private fun setAdapter(){
+        binding.leafesAdapter.adapter = leafesAdapter
+        binding.leafesAdapter.layoutManager = LinearLayoutManager(context)
     }
 
     private fun setSearchView(){

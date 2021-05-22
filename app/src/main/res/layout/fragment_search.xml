@@ -1,10 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
+<LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     android:background="@color/white"
     tools:context=".ui.main.SearchFragment">
 
@@ -16,8 +17,7 @@
         android:layout_marginEnd="12dp"
         android:scaleType="centerCrop"
         android:src="@drawable/logo_main"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
+        android:layout_gravity="end"
         android:contentDescription="@string/small_logo" />
 
     <androidx.appcompat.widget.SearchView
@@ -30,9 +30,6 @@
         android:background="@drawable/rounded_search"
         android:elevation="4dp"
         app:defaultQueryHint="Cari Jenis Penyakit atau Tumbuhan Herbal..."
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imageView2"
         app:queryHint="Cari Jenis Penyakit atau Tumbuhan Herbal..." />
 
     <ImageView
@@ -43,9 +40,6 @@
         android:layout_marginTop="61dp"
         android:layout_marginEnd="16dp"
         android:src="@drawable/vector_search_error"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/search_view"
         android:contentDescription="@string/error_image"
         android:visibility="gone"/>
 
@@ -58,18 +52,14 @@
         android:text="@string/search_error"
         android:textColor="@color/font_color"
         android:textSize="14sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imageView3"
         android:visibility="gone"/>
 
     <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/leafes_adapter"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
         android:layout_marginTop="10dp"
-        app:layout_constraintTop_toBottomOf="@+id/search_view"
+        android:layout_marginBottom="60dp"
         tools:listitem="@layout/item_plants" />
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+</LinearLayout>
