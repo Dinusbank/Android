@@ -7,6 +7,7 @@ import android.os.Bundle
 import com.bumptech.glide.Glide
 import com.dinusbank.tumbuhin.data.ResponseDataLeafes
 import com.dinusbank.tumbuhin.databinding.ActivityResultBinding
+import com.google.android.material.bottomsheet.BottomSheetBehavior
 
 class ResultActivity : AppCompatActivity() {
 
@@ -23,16 +24,17 @@ class ResultActivity : AppCompatActivity() {
         binding = ActivityResultBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        BottomSheetBehavior.from(binding.sheet).apply {
+            peekHeight = 200
+            this.state = BottomSheetBehavior.STATE_COLLAPSED
+        }
+
         val bundle: Bundle? = intent.extras
 
-        val numberAction = bundle?.getInt(ACTION_PICKER)
-
-        if (numberAction == 1){
-            setImageFromGallery()
-        } else if (numberAction == 2){
-            setImageFromCamera()
-        } else{
-            getDetailLeafes()
+        when (bundle?.getInt(ACTION_PICKER)) {
+            1 -> setImageFromGallery()
+            2 -> setImageFromCamera()
+            3 -> getDetailLeafes()
         }
 
         binding.btnBack.setOnClickListener {
@@ -48,7 +50,7 @@ class ResultActivity : AppCompatActivity() {
 
             Glide.with(this)
                 .load(setImage)
-                .override(250,250)
+                .override(312,416)
                 .into(binding.ivLeafes)
         }
     }
@@ -58,7 +60,7 @@ class ResultActivity : AppCompatActivity() {
 
         Glide.with(this)
             .load(imageBitmap)
-            .override(250,250)
+            .override(312,416)
             .into(binding.ivLeafes)
     }
 

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
+<androidx.coordinatorlayout.widget.CoordinatorLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
@@ -13,8 +13,6 @@
         android:id="@+id/btn_back"
         android:layout_width="40dp"
         android:layout_height="40dp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
         android:layout_marginStart="14dp"
         android:layout_marginTop="15dp"
         android:contentDescription="@string/back_button"
@@ -26,40 +24,43 @@
         android:layout_height="31dp"
         android:scaleType="centerCrop"
         android:src="@drawable/logo_main"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
+        android:layout_gravity="end"
         android:layout_marginTop="18dp"
         android:layout_marginEnd="12dp"
         android:contentDescription="@string/small_logo" />
 
     <ImageView
         android:id="@+id/iv_leafes"
-        android:layout_width="250dp"
-        android:layout_height="250dp"
-        android:layout_gravity="center"
+        android:layout_width="312dp"
+        android:layout_height="416dp"
+        android:layout_gravity="center_horizontal"
         android:contentDescription="@string/image_leafes"
-        android:scaleType="centerCrop"
         android:src="@drawable/leafes_preview"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        android:layout_marginTop="21dp"
+        android:layout_marginTop="80dp"
         app:layout_constraintTop_toBottomOf="@+id/btn_back" />
 
     <LinearLayout
+        android:id="@+id/sheet"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@drawable/shape_rounded"
         android:elevation="@dimen/sixteen_dp"
         android:orientation="vertical"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent">
+        app:layout_behavior="com.google.android.material.bottomsheet.BottomSheetBehavior" >
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="10dp"
+            android:src="@drawable/rectangle_2"
+            android:contentDescription="@string/rectangle" />
 
         <TextView
             android:id="@+id/tv_leafesname"
             style="@style/LeafesText_bold"
             android:layout_marginStart="@dimen/sixteen_dp"
-            android:layout_marginTop="@dimen/fourty_dp"
+            android:layout_marginTop="28dp"
             android:text="@string/nama_tumbuhan" />
 
         <TextView
@@ -80,8 +81,8 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/sixteen_dp"
             android:layout_marginEnd="@dimen/sixteen_dp"
-            android:contentDescription="@string/rectangle"
             android:layout_marginBottom="@dimen/sixteen_dp"
+            android:contentDescription="@string/rectangle"
             android:src="@drawable/asset_rectangle" />
 
         <TextView
@@ -121,12 +122,12 @@
             android:layout_marginStart="@dimen/sixteen_dp"
             android:layout_marginTop="@dimen/sixteen_dp"
             android:layout_marginEnd="@dimen/sixteen_dp"
-            android:fontFamily="@font/poppins"
             android:layout_marginBottom="@dimen/sixteen_dp"
+            android:fontFamily="@font/poppins"
             android:text="@string/composition_example"
             android:textColor="@color/font_color"
             android:textSize="@dimen/fourteen_sp" />
 
     </LinearLayout>
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+</androidx.coordinatorlayout.widget.CoordinatorLayout>
