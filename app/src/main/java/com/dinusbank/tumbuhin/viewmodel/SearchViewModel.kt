@@ -24,7 +24,7 @@ class SearchViewModel: ViewModel() {
             }
 
             override fun onFailure(call: Call<ResponseLeafes>, t: Throwable) {
-                Log.e("SearchViewModel", "OnFailure: ${t.message.toString()}")
+                Log.e("SearchViewModel", "Data Tidak Ditemukan")
             }
 
         })
@@ -40,7 +40,7 @@ class SearchViewModel: ViewModel() {
             }
 
             override fun onFailure(call: Call<ResponseLeafes>, t: Throwable) {
-                TODO("Not yet implemented")
+                Log.e("SearchViewModel", "Data Tidak Ditemukan")
             }
 
         })

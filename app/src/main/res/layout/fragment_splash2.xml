@@ -19,7 +19,7 @@
         android:contentDescription="@string/small_logo" />
 
     <ImageView
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="282dp"
         android:src="@drawable/vector_guidescreen_1"
         android:layout_gravity="center"
