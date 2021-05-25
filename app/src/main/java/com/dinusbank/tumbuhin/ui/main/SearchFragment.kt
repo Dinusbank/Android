@@ -35,13 +35,23 @@ class SearchFragment : Fragment() {
         leafesAdapter = LeafesAdapter(mutableListOf<ResponseDataLeafes>() as ArrayList<ResponseDataLeafes>)
 
         searchViewModel.getSearchViewModel().observe(requireActivity(), {listDataLeafes ->
-            setAdapter()
             if (listDataLeafes != null){
                 leafesAdapter.setData(listDataLeafes)
+                setAdapter()
+                setProgressLoading(false)
+                binding.leafesAdapter.visibility = View.VISIBLE
             }
         })
 
         setSearchView()
+    }
+
+    private fun setProgressLoading(state: Boolean){
+        if (state){
+            binding.progressBar.visibility = View.VISIBLE
+        } else{
+            binding.progressBar.visibility = View.GONE
+        }
     }
 
     private fun setAdapter(){
@@ -49,6 +59,7 @@ class SearchFragment : Fragment() {
             adapter = leafesAdapter
             leafesAdapter = LeafesAdapter(listLeafes)
             layoutManager = LinearLayoutManager(context)
+            leafesAdapter.notifyDataSetChanged()
         }
     }
 
@@ -65,18 +76,9 @@ class SearchFragment : Fragment() {
                 }
 
                 override fun onQueryTextChange(newText: String?): Boolean {
-                    if (newText.isNullOrEmpty()){
-                        listLeafes.clear()
-                        binding.imageView3.visibility = View.VISIBLE
-                        binding.textNull.visibility = View.VISIBLE
-                    } else{
-                        binding.leafesAdapter.visibility = View.GONE
-                        listLeafes.clear()
-                        searchViewModel.getSearch(newText)
-                        binding.leafesAdapter.visibility = View.VISIBLE
-                        binding.imageView3.visibility = View.GONE
-                        binding.textNull.visibility = View.GONE
-                    }
+                    listLeafes.clear()
+                    newText?.let { searchViewModel.getSearch(it) }
+                    leafesAdapter.notifyDataSetChanged()
 
                     return true
                 }

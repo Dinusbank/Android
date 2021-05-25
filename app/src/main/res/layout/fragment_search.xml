@@ -41,7 +41,7 @@
         android:layout_marginEnd="16dp"
         android:src="@drawable/vector_search_error"
         android:contentDescription="@string/error_image"
-        android:visibility="visible"/>
+        android:visibility="gone"/>
 
     <TextView
         android:id="@+id/text_null"
@@ -53,7 +53,7 @@
         android:text="@string/search_error"
         android:textColor="@color/font_color"
         android:textSize="14sp"
-        android:visibility="visible"/>
+        android:visibility="gone"/>
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/leafes_adapter"
@@ -63,5 +63,13 @@
         android:layout_marginBottom="60dp"
         tools:listitem="@layout/item_plants"
         android:visibility="gone"/>
+
+    <ProgressBar
+        android:id="@+id/progress_bar"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_gravity="center"
+        android:layout_marginTop="200dp"
+        android:indeterminateDuration="50" />
 
 </LinearLayout>
