@@ -4,6 +4,7 @@ import android.graphics.Bitmap
 import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.View
 import com.bumptech.glide.Glide
 import com.dinusbank.tumbuhin.data.ResponseDataLeafes
 import com.dinusbank.tumbuhin.databinding.ActivityResultBinding
@@ -31,14 +32,26 @@ class ResultActivity : AppCompatActivity() {
 
         val bundle: Bundle? = intent.extras
 
-        when (bundle?.getInt(ACTION_PICKER)) {
-            1 -> setImageFromGallery()
-            2 -> setImageFromCamera()
-            3 -> getDetailLeafes()
+        if (bundle != null){
+            when (bundle.getInt(ACTION_PICKER)) {
+                1 -> setImageFromGallery()
+                2 -> setImageFromCamera()
+                3 -> getDetailLeafes()
+            }
+
+            showProgressLoading(false)
         }
 
         binding.btnBack.setOnClickListener {
             super.onBackPressed()
+        }
+    }
+
+    private fun showProgressLoading(state: Boolean){
+        if (state){
+            binding.progressBar.visibility = View.VISIBLE
+        } else{
+            binding.progressBar.visibility = View.GONE
         }
     }
 
@@ -52,23 +65,32 @@ class ResultActivity : AppCompatActivity() {
                 .load(setImage)
                 .override(312,416)
                 .into(binding.ivLeafes)
+
+            showProgressLoading(false)
+            binding.ivLeafes.visibility = View.VISIBLE
         }
     }
 
     private fun setImageFromCamera(){
         val imageBitmap: Bitmap? = intent.getParcelableExtra(IMAGE_ID)
 
-        Glide.with(this)
-            .load(imageBitmap)
-            .override(312,416)
-            .into(binding.ivLeafes)
+        if (imageBitmap != null){
+            Glide.with(this)
+                .load(imageBitmap)
+                .override(312,416)
+                .into(binding.ivLeafes)
+        }
     }
 
     private fun getDetailLeafes(){
         val dataLeafes = intent.getParcelableExtra<ResponseDataLeafes>(LEAFES) as ResponseDataLeafes
+
         binding.tvLeafesname.text = dataLeafes.name
         binding.tvLeafesnameItalic.text = dataLeafes.latinName
         binding.tvManfaat.text = dataLeafes.benefits
         binding.tvKomposisi.text = dataLeafes.composition
+        Glide.with(this)
+            .load(dataLeafes.imageLeafes)
+            .into(binding.ivLeafes)
     }
 }

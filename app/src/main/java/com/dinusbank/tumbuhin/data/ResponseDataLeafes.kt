@@ -18,6 +18,9 @@ data class ResponseDataLeafes(
     @field:SerializedName("manfaat")
     val benefits: String? = null,
 
-    @field:SerializedName("komposisi")
-    val composition: String? = null
+    @field:SerializedName("kandungan")
+    val composition: String? = null,
+
+    @field:SerializedName("gambar")
+    val imageLeafes: String? = null
 ) : Parcelable
