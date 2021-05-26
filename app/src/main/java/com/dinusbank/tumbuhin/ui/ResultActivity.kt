@@ -33,13 +33,14 @@ class ResultActivity : AppCompatActivity() {
         val bundle: Bundle? = intent.extras
 
         if (bundle != null){
+            showProgressLoading(false)
+            binding.ivLeafes.visibility = View.VISIBLE
+
             when (bundle.getInt(ACTION_PICKER)) {
                 1 -> setImageFromGallery()
                 2 -> setImageFromCamera()
                 3 -> getDetailLeafes()
             }
-
-            showProgressLoading(false)
         }
 
         binding.btnBack.setOnClickListener {
@@ -65,9 +66,6 @@ class ResultActivity : AppCompatActivity() {
                 .load(setImage)
                 .override(312,416)
                 .into(binding.ivLeafes)
-
-            showProgressLoading(false)
-            binding.ivLeafes.visibility = View.VISIBLE
         }
     }
 
@@ -91,6 +89,7 @@ class ResultActivity : AppCompatActivity() {
         binding.tvKomposisi.text = dataLeafes.composition
         Glide.with(this)
             .load(dataLeafes.imageLeafes)
+            .override(600,300)
             .into(binding.ivLeafes)
     }
 }

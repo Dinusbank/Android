@@ -48,5 +48,4 @@ class LeafesAdapter(private val listDataLeafes: ArrayList<ResponseDataLeafes>): 
     override fun getItemCount(): Int {
         return listDataLeafes.size
     }
-
 }
