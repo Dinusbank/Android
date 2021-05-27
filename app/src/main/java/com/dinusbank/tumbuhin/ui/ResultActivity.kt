@@ -52,7 +52,7 @@ class ResultActivity : AppCompatActivity() {
             when (bundle.getInt(ACTION_PICKER)) {
                 1 -> setImageFromGallery()
                 2 -> setImageFromCamera()
-                3 -> getDetailLeafes()
+                3 -> getDetailLeafesSearch()
             }
         }
 
