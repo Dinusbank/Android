@@ -758,7 +758,7 @@ class ResultActivity : AppCompatActivity() {
         }
     }
 
-    private fun getDetailLeafes(){
+    private fun getDetailLeafesSearch(){
         val dataLeafes = intent.getParcelableExtra<ResponseDataLeafes>(LEAFES) as ResponseDataLeafes
 
         binding.tvLeafesname.text = dataLeafes.name
