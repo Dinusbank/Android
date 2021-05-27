@@ -18,7 +18,6 @@ class SearchFragment : Fragment() {
     private lateinit var searchViewModel: SearchViewModel
     private lateinit var leafesAdapter: LeafesAdapter
     private val listLeafes = ArrayList<ResponseDataLeafes>()
-    private val dataLeafes = ResponseDataLeafes()
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         binding = FragmentSearchBinding.inflate(inflater, container, false)

@@ -1,14 +1,19 @@
+@file:Suppress("DEPRECATION")
+
 package com.dinusbank.tumbuhin.ui
 
 import android.graphics.Bitmap
 import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.provider.MediaStore
 import android.view.View
+import androidx.lifecycle.ViewModelProvider
 import com.bumptech.glide.Glide
 import com.dinusbank.tumbuhin.data.ResponseDataLeafes
 import com.dinusbank.tumbuhin.databinding.ActivityResultBinding
 import com.dinusbank.tumbuhin.ml.Medleaf
+import com.dinusbank.tumbuhin.viewmodel.SearchViewModel
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import org.tensorflow.lite.DataType
 import org.tensorflow.lite.support.common.ops.NormalizeOp
@@ -20,6 +25,7 @@ import org.tensorflow.lite.support.tensorbuffer.TensorBuffer
 class ResultActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityResultBinding
+    private lateinit var searchViewModel: SearchViewModel
 
     companion object{
         const val IMAGE_ID = "image_id"
@@ -64,20 +70,359 @@ class ResultActivity : AppCompatActivity() {
     }
 
     private fun setImageFromGallery(){
+        searchViewModel = ViewModelProvider(this, ViewModelProvider.NewInstanceFactory())
+            .get(SearchViewModel::class.java)
+
+        searchViewModel.getLeafes()
+
         val bundle: Bundle? = intent.extras
 
         if (bundle != null){
             val setImage: Uri = Uri.parse(bundle.getString(IMAGE_ID))
+            val imageBitmap = MediaStore.Images.Media.getBitmap(this.contentResolver, setImage)
 
-            Glide.with(this)
-                .load(setImage)
-                .override(312,416)
-                .into(binding.ivLeafes)
+            if (imageBitmap != null){
+                val labels = application.assets.open("label.txt").bufferedReader().use {
+                    it.readText()
+                }.split("\n")
+
+                val model = Medleaf.newInstance(this)
+
+                val imageProcessor = ImageProcessor.Builder()
+                    .add(ResizeOp(168,168, ResizeOp.ResizeMethod.BILINEAR))
+                    .add(NormalizeOp(127.5f, 127.5f))
+                    .build()
+
+                var tImage = TensorImage(DataType.FLOAT32)
+                tImage.load(imageBitmap)
+                tImage = imageProcessor.process(tImage)
+
+                val inputFeature0 = TensorBuffer.createFixedSize(intArrayOf(1, 168, 168, 3), DataType.FLOAT32)
+                inputFeature0.loadBuffer(tImage.buffer)
+
+                val outputs = model.process(inputFeature0)
+                val outputFeature0 = outputs.outputFeature0AsTensorBuffer
+
+                val max = getMax(outputFeature0.floatArray)
+
+                when(labels[max]){
+                    "Alpinia_galanga" -> {
+                        searchViewModel.getSearchViewModel().observe(this, {listDataLeafes ->
+                            if (listDataLeafes != null){
+                                val leafes = listDataLeafes[13]
+
+                                binding.tvLeafesname.text = leafes.name
+                                binding.tvLeafesnameItalic.text = leafes.latinName
+                                binding.tvManfaat.text = leafes.benefits
+                                binding.tvKomposisi.text = leafes.composition
+                            }
+                        })
+                    }
+
+                    "Amaranthus_viridis" -> {
+                        searchViewModel.getSearchViewModel().observe(this, {listDataLeafes ->
+                            if (listDataLeafes != null){
+                                val leafes = listDataLeafes[1]
+
+                                binding.tvLeafesname.text = leafes.name
+                                binding.tvLeafesnameItalic.text = leafes.latinName
+                                binding.tvManfaat.text = leafes.benefits
+                                binding.tvKomposisi.text = leafes.composition
+                            }
+                        })
+                    }
+
+                    "Andrographis_paniculata" -> {
+                        searchViewModel.getSearchViewModel().observe(this, {listDataLeafes ->
+                            if (listDataLeafes != null){
+                                val leafes = listDataLeafes[19]
+
+                                binding.tvLeafesname.text = leafes.name
+                                binding.tvLeafesnameItalic.text = leafes.latinName
+                                binding.tvManfaat.text = leafes.benefits
+                                binding.tvKomposisi.text = leafes.composition
+                            }
+                        })
+                    }
+
+                    "Artocarpus_heterophyllus" -> {
+                        searchViewModel.getSearchViewModel().observe(this, {listDataLeafes ->
+                            if (listDataLeafes != null){
+                                val leafes = listDataLeafes[7]
+
+                                binding.tvLeafesname.text = leafes.name
+                                binding.tvLeafesnameItalic.text = leafes.latinName
+                                binding.tvManfaat.text = leafes.benefits
+                                binding.tvKomposisi.text = leafes.composition
+                            }
+                        })
+                    }
+
+                    "Azadirachta_indica" -> {
+                        searchViewModel.getSearchViewModel().observe(this, {listDataLeafes ->
+                            if (listDataLeafes != null){
+                                val leafes = listDataLeafes[6]
+
+                                binding.tvLeafesname.text = leafes.name
+                                binding.tvLeafesnameItalic.text = leafes.latinName
+                                binding.tvManfaat.text = leafes.benefits
+                                binding.tvKomposisi.text = leafes.composition
+                            }
+                        })
+                    }
+
+                    "Basella_alba" -> {
+                        searchViewModel.getSearchViewModel().observe(this, {listDataLeafes ->
+                            if (listDataLeafes != null){
+                                val leafes = listDataLeafes[2]
+
+                                binding.tvLeafesname.text = leafes.name
+                                binding.tvLeafesnameItalic.text = leafes.latinName
+                                binding.tvManfaat.text = leafes.benefits
+                                binding.tvKomposisi.text = leafes.composition
+                            }
+                        })
+                    }
+
+                    "Brassica_juncea" -> {
+                        searchViewModel.getSearchViewModel().observe(this, {listDataLeafes ->
+                            if (listDataLeafes != null){
+                                val leafes = listDataLeafes[20]
+
+                                binding.tvLeafesname.text = leafes.name
+                                binding.tvLeafesnameItalic.text = leafes.latinName
+                                binding.tvManfaat.text = leafes.benefits
+                                binding.tvKomposisi.text = leafes.composition
+                            }
+                        })
+                    }
+
+                    "Carissa_carandas" -> {
+                        searchViewModel.getSearchViewModel().observe(this, {listDataLeafes ->
+                            if (listDataLeafes != null){
+                                val leafes = listDataLeafes[4]
+
+                                binding.tvLeafesname.text = leafes.name
+                                binding.tvLeafesnameItalic.text = leafes.latinName
+                                binding.tvManfaat.text = leafes.benefits
+                                binding.tvKomposisi.text = leafes.composition
+                            }
+                        })
+                    }
+
+                    "Citrus_limon" -> {
+                        searchViewModel.getSearchViewModel().observe(this, {listDataLeafes ->
+                            if (listDataLeafes != null){
+                                val leafes = listDataLeafes[12]
+
+                                binding.tvLeafesname.text = leafes.name
+                                binding.tvLeafesnameItalic.text = leafes.latinName
+                                binding.tvManfaat.text = leafes.benefits
+                                binding.tvKomposisi.text = leafes.composition
+                            }
+                        })
+                    }
+
+                    "Curcuma_zedoaria" -> {
+                        searchViewModel.getSearchViewModel().observe(this, {listDataLeafes ->
+                            if (listDataLeafes != null){
+                                val leafes = listDataLeafes[11]
+
+                                binding.tvLeafesname.text = leafes.name
+                                binding.tvLeafesnameItalic.text = leafes.latinName
+                                binding.tvManfaat.text = leafes.benefits
+                                binding.tvKomposisi.text = leafes.composition
+                            }
+                        })
+                    }
+
+                    "Ficus_auriculata" -> {
+                        searchViewModel.getSearchViewModel().observe(this, {listDataLeafes ->
+                            if (listDataLeafes != null){
+                                val leafes = listDataLeafes[0]
+
+                                binding.tvLeafesname.text = leafes.name
+                                binding.tvLeafesnameItalic.text = leafes.latinName
+                                binding.tvManfaat.text = leafes.benefits
+                                binding.tvKomposisi.text = leafes.composition
+                            }
+                        })
+                    }
+
+                    "Hibiscus_rosa-sinensis" -> {
+                        searchViewModel.getSearchViewModel().observe(this, {listDataLeafes ->
+                            if (listDataLeafes != null){
+                                val leafes = listDataLeafes[5]
+
+                                binding.tvLeafesname.text = leafes.name
+                                binding.tvLeafesnameItalic.text = leafes.latinName
+                                binding.tvManfaat.text = leafes.benefits
+                                binding.tvKomposisi.text = leafes.composition
+                            }
+                        })
+                    }
+
+                    "Jasminum_sp" -> {
+                        searchViewModel.getSearchViewModel().observe(this, {listDataLeafes ->
+                            if (listDataLeafes != null){
+                                val leafes = listDataLeafes[16]
+
+                                binding.tvLeafesname.text = leafes.name
+                                binding.tvLeafesnameItalic.text = leafes.latinName
+                                binding.tvManfaat.text = leafes.benefits
+                                binding.tvKomposisi.text = leafes.composition
+                            }
+                        })
+                    }
+
+                    "Mangifera_indica" -> {
+                        searchViewModel.getSearchViewModel().observe(this, {listDataLeafes ->
+                            if (listDataLeafes != null){
+                                val leafes = listDataLeafes[15]
+
+                                binding.tvLeafesname.text = leafes.name
+                                binding.tvLeafesnameItalic.text = leafes.latinName
+                                binding.tvManfaat.text = leafes.benefits
+                                binding.tvKomposisi.text = leafes.composition
+                            }
+                        })
+                    }
+
+                    "Mentha_sp" -> {
+                        searchViewModel.getSearchViewModel().observe(this, {listDataLeafes ->
+                            if (listDataLeafes != null){
+                                val leafes = listDataLeafes[17]
+
+                                binding.tvLeafesname.text = leafes.name
+                                binding.tvLeafesnameItalic.text = leafes.latinName
+                                binding.tvManfaat.text = leafes.benefits
+                                binding.tvKomposisi.text = leafes.composition
+                            }
+                        })
+                    }
+
+                    "Moringa_oleifera" -> {
+                        searchViewModel.getSearchViewModel().observe(this, {listDataLeafes ->
+                            if (listDataLeafes != null){
+                                val leafes = listDataLeafes[10]
+
+                                binding.tvLeafesname.text = leafes.name
+                                binding.tvLeafesnameItalic.text = leafes.latinName
+                                binding.tvManfaat.text = leafes.benefits
+                                binding.tvKomposisi.text = leafes.composition
+                            }
+                        })
+                    }
+
+                    "Nyctanthes_arbor-tristis" -> {
+                        searchViewModel.getSearchViewModel().observe(this, {listDataLeafes ->
+                            if (listDataLeafes != null){
+                                val leafes = listDataLeafes[22]
+
+                                binding.tvLeafesname.text = leafes.name
+                                binding.tvLeafesnameItalic.text = leafes.latinName
+                                binding.tvManfaat.text = leafes.benefits
+                                binding.tvKomposisi.text = leafes.composition
+                            }
+                        })
+                    }
+
+                    "Ocimum_tenuiflorum" -> {
+                        searchViewModel.getSearchViewModel().observe(this, {listDataLeafes ->
+                            if (listDataLeafes != null){
+                                val leafes = listDataLeafes[18]
+
+                                binding.tvLeafesname.text = leafes.name
+                                binding.tvLeafesnameItalic.text = leafes.latinName
+                                binding.tvManfaat.text = leafes.benefits
+                                binding.tvKomposisi.text = leafes.composition
+                            }
+                        })
+                    }
+
+                    "Piper_betle" -> {
+                        searchViewModel.getSearchViewModel().observe(this, {listDataLeafes ->
+                            if (listDataLeafes != null){
+                                val leafes = listDataLeafes[21]
+
+                                binding.tvLeafesname.text = leafes.name
+                                binding.tvLeafesnameItalic.text = leafes.latinName
+                                binding.tvManfaat.text = leafes.benefits
+                                binding.tvKomposisi.text = leafes.composition
+                            }
+                        })
+                    }
+
+                    "Plectranthus_amboinicus" -> {
+                        searchViewModel.getSearchViewModel().observe(this, {listDataLeafes ->
+                            if (listDataLeafes != null){
+                                val leafes = listDataLeafes[9]
+
+                                binding.tvLeafesname.text = leafes.name
+                                binding.tvLeafesnameItalic.text = leafes.latinName
+                                binding.tvManfaat.text = leafes.benefits
+                                binding.tvKomposisi.text = leafes.composition
+                            }
+                        })
+                    }
+
+                    "Pongamia_pinnata" -> {
+                        searchViewModel.getSearchViewModel().observe(this, {listDataLeafes ->
+                            if (listDataLeafes != null){
+                                val leafes = listDataLeafes[14]
+
+                                binding.tvLeafesname.text = leafes.name
+                                binding.tvLeafesnameItalic.text = leafes.latinName
+                                binding.tvManfaat.text = leafes.benefits
+                                binding.tvKomposisi.text = leafes.composition
+                            }
+                        })
+                    }
+
+                    "Psidium_guajava" -> {
+                        searchViewModel.getSearchViewModel().observe(this, {listDataLeafes ->
+                            if (listDataLeafes != null){
+                                val leafes = listDataLeafes[8]
+
+                                binding.tvLeafesname.text = leafes.name
+                                binding.tvLeafesnameItalic.text = leafes.latinName
+                                binding.tvManfaat.text = leafes.benefits
+                                binding.tvKomposisi.text = leafes.composition
+                            }
+                        })
+                    }
+
+                    "Tinospora_cordifolia" -> {
+                        searchViewModel.getSearchViewModel().observe(this, {listDataLeafes ->
+                            if (listDataLeafes != null){
+                                val leafes = listDataLeafes[3]
+
+                                binding.tvLeafesname.text = leafes.name
+                                binding.tvLeafesnameItalic.text = leafes.latinName
+                                binding.tvManfaat.text = leafes.benefits
+                                binding.tvKomposisi.text = leafes.composition
+                            }
+                        })
+                    }
+                }
+
+                model.close()
+
+                Glide.with(this)
+                    .load(imageBitmap)
+                    .override(312,416)
+                    .into(binding.ivLeafes)
+            }
         }
     }
 
     private fun setImageFromCamera(){
         val imageBitmap: Bitmap? = intent.getParcelableExtra(IMAGE_ID)
+
+        searchViewModel = ViewModelProvider(this, ViewModelProvider.NewInstanceFactory())
+            .get(SearchViewModel::class.java)
+
+        searchViewModel.getLeafes()
 
         if (imageBitmap != null){
             val labels = application.assets.open("label.txt").bufferedReader().use {
@@ -103,7 +448,306 @@ class ResultActivity : AppCompatActivity() {
 
             val max = getMax(outputFeature0.floatArray)
 
-            binding.tvLeafesnameItalic.text = labels[max]
+            when(labels[max]){
+                "Alpinia_galanga" -> {
+                    searchViewModel.getSearchViewModel().observe(this, {listDataLeafes ->
+                        if (listDataLeafes != null){
+                            val leafes = listDataLeafes[13]
+
+                            binding.tvLeafesname.text = leafes.name
+                            binding.tvLeafesnameItalic.text = leafes.latinName
+                            binding.tvManfaat.text = leafes.benefits
+                            binding.tvKomposisi.text = leafes.composition
+                        }
+                    })
+                }
+
+                "Amaranthus_viridis" -> {
+                    searchViewModel.getSearchViewModel().observe(this, {listDataLeafes ->
+                        if (listDataLeafes != null){
+                            val leafes = listDataLeafes[1]
+
+                            binding.tvLeafesname.text = leafes.name
+                            binding.tvLeafesnameItalic.text = leafes.latinName
+                            binding.tvManfaat.text = leafes.benefits
+                            binding.tvKomposisi.text = leafes.composition
+                        }
+                    })
+                }
+
+                "Andrographis_paniculata" -> {
+                    searchViewModel.getSearchViewModel().observe(this, {listDataLeafes ->
+                        if (listDataLeafes != null){
+                            val leafes = listDataLeafes[19]
+
+                            binding.tvLeafesname.text = leafes.name
+                            binding.tvLeafesnameItalic.text = leafes.latinName
+                            binding.tvManfaat.text = leafes.benefits
+                            binding.tvKomposisi.text = leafes.composition
+                        }
+                    })
+                }
+
+                "Artocarpus_heterophyllus" -> {
+                    searchViewModel.getSearchViewModel().observe(this, {listDataLeafes ->
+                        if (listDataLeafes != null){
+                            val leafes = listDataLeafes[7]
+
+                            binding.tvLeafesname.text = leafes.name
+                            binding.tvLeafesnameItalic.text = leafes.latinName
+                            binding.tvManfaat.text = leafes.benefits
+                            binding.tvKomposisi.text = leafes.composition
+                        }
+                    })
+                }
+
+                "Azadirachta_indica" -> {
+                    searchViewModel.getSearchViewModel().observe(this, {listDataLeafes ->
+                        if (listDataLeafes != null){
+                            val leafes = listDataLeafes[6]
+
+                            binding.tvLeafesname.text = leafes.name
+                            binding.tvLeafesnameItalic.text = leafes.latinName
+                            binding.tvManfaat.text = leafes.benefits
+                            binding.tvKomposisi.text = leafes.composition
+                        }
+                    })
+                }
+
+                "Basella_alba" -> {
+                    searchViewModel.getSearchViewModel().observe(this, {listDataLeafes ->
+                        if (listDataLeafes != null){
+                            val leafes = listDataLeafes[2]
+
+                            binding.tvLeafesname.text = leafes.name
+                            binding.tvLeafesnameItalic.text = leafes.latinName
+                            binding.tvManfaat.text = leafes.benefits
+                            binding.tvKomposisi.text = leafes.composition
+                        }
+                    })
+                }
+
+                "Brassica_juncea" -> {
+                    searchViewModel.getSearchViewModel().observe(this, {listDataLeafes ->
+                        if (listDataLeafes != null){
+                            val leafes = listDataLeafes[20]
+
+                            binding.tvLeafesname.text = leafes.name
+                            binding.tvLeafesnameItalic.text = leafes.latinName
+                            binding.tvManfaat.text = leafes.benefits
+                            binding.tvKomposisi.text = leafes.composition
+                        }
+                    })
+                }
+
+                "Carissa_carandas" -> {
+                    searchViewModel.getSearchViewModel().observe(this, {listDataLeafes ->
+                        if (listDataLeafes != null){
+                            val leafes = listDataLeafes[4]
+
+                            binding.tvLeafesname.text = leafes.name
+                            binding.tvLeafesnameItalic.text = leafes.latinName
+                            binding.tvManfaat.text = leafes.benefits
+                            binding.tvKomposisi.text = leafes.composition
+                        }
+                    })
+                }
+
+                "Citrus_limon" -> {
+                    searchViewModel.getSearchViewModel().observe(this, {listDataLeafes ->
+                        if (listDataLeafes != null){
+                            val leafes = listDataLeafes[12]
+
+                            binding.tvLeafesname.text = leafes.name
+                            binding.tvLeafesnameItalic.text = leafes.latinName
+                            binding.tvManfaat.text = leafes.benefits
+                            binding.tvKomposisi.text = leafes.composition
+                        }
+                    })
+                }
+
+                "Curcuma_zedoaria" -> {
+                    searchViewModel.getSearchViewModel().observe(this, {listDataLeafes ->
+                        if (listDataLeafes != null){
+                            val leafes = listDataLeafes[11]
+
+                            binding.tvLeafesname.text = leafes.name
+                            binding.tvLeafesnameItalic.text = leafes.latinName
+                            binding.tvManfaat.text = leafes.benefits
+                            binding.tvKomposisi.text = leafes.composition
+                        }
+                    })
+                }
+
+                "Ficus_auriculata" -> {
+                    searchViewModel.getSearchViewModel().observe(this, {listDataLeafes ->
+                        if (listDataLeafes != null){
+                            val leafes = listDataLeafes[0]
+
+                            binding.tvLeafesname.text = leafes.name
+                            binding.tvLeafesnameItalic.text = leafes.latinName
+                            binding.tvManfaat.text = leafes.benefits
+                            binding.tvKomposisi.text = leafes.composition
+                        }
+                    })
+                }
+
+                "Hibiscus_rosa-sinensis" -> {
+                    searchViewModel.getSearchViewModel().observe(this, {listDataLeafes ->
+                        if (listDataLeafes != null){
+                            val leafes = listDataLeafes[5]
+
+                            binding.tvLeafesname.text = leafes.name
+                            binding.tvLeafesnameItalic.text = leafes.latinName
+                            binding.tvManfaat.text = leafes.benefits
+                            binding.tvKomposisi.text = leafes.composition
+                        }
+                    })
+                }
+
+                "Jasminum_sp" -> {
+                    searchViewModel.getSearchViewModel().observe(this, {listDataLeafes ->
+                        if (listDataLeafes != null){
+                            val leafes = listDataLeafes[16]
+
+                            binding.tvLeafesname.text = leafes.name
+                            binding.tvLeafesnameItalic.text = leafes.latinName
+                            binding.tvManfaat.text = leafes.benefits
+                            binding.tvKomposisi.text = leafes.composition
+                        }
+                    })
+                }
+
+                "Mangifera_indica" -> {
+                    searchViewModel.getSearchViewModel().observe(this, {listDataLeafes ->
+                        if (listDataLeafes != null){
+                            val leafes = listDataLeafes[15]
+
+                            binding.tvLeafesname.text = leafes.name
+                            binding.tvLeafesnameItalic.text = leafes.latinName
+                            binding.tvManfaat.text = leafes.benefits
+                            binding.tvKomposisi.text = leafes.composition
+                        }
+                    })
+                }
+
+                "Mentha_sp" -> {
+                    searchViewModel.getSearchViewModel().observe(this, {listDataLeafes ->
+                        if (listDataLeafes != null){
+                            val leafes = listDataLeafes[17]
+
+                            binding.tvLeafesname.text = leafes.name
+                            binding.tvLeafesnameItalic.text = leafes.latinName
+                            binding.tvManfaat.text = leafes.benefits
+                            binding.tvKomposisi.text = leafes.composition
+                        }
+                    })
+                }
+
+                "Moringa_oleifera" -> {
+                    searchViewModel.getSearchViewModel().observe(this, {listDataLeafes ->
+                        if (listDataLeafes != null){
+                            val leafes = listDataLeafes[10]
+
+                            binding.tvLeafesname.text = leafes.name
+                            binding.tvLeafesnameItalic.text = leafes.latinName
+                            binding.tvManfaat.text = leafes.benefits
+                            binding.tvKomposisi.text = leafes.composition
+                        }
+                    })
+                }
+
+                "Nyctanthes_arbor-tristis" -> {
+                    searchViewModel.getSearchViewModel().observe(this, {listDataLeafes ->
+                        if (listDataLeafes != null){
+                            val leafes = listDataLeafes[22]
+
+                            binding.tvLeafesname.text = leafes.name
+                            binding.tvLeafesnameItalic.text = leafes.latinName
+                            binding.tvManfaat.text = leafes.benefits
+                            binding.tvKomposisi.text = leafes.composition
+                        }
+                    })
+                }
+
+                "Ocimum_tenuiflorum" -> {
+                    searchViewModel.getSearchViewModel().observe(this, {listDataLeafes ->
+                        if (listDataLeafes != null){
+                            val leafes = listDataLeafes[18]
+
+                            binding.tvLeafesname.text = leafes.name
+                            binding.tvLeafesnameItalic.text = leafes.latinName
+                            binding.tvManfaat.text = leafes.benefits
+                            binding.tvKomposisi.text = leafes.composition
+                        }
+                    })
+                }
+
+                "Piper_betle" -> {
+                    searchViewModel.getSearchViewModel().observe(this, {listDataLeafes ->
+                        if (listDataLeafes != null){
+                            val leafes = listDataLeafes[21]
+
+                            binding.tvLeafesname.text = leafes.name
+                            binding.tvLeafesnameItalic.text = leafes.latinName
+                            binding.tvManfaat.text = leafes.benefits
+                            binding.tvKomposisi.text = leafes.composition
+                        }
+                    })
+                }
+
+                "Plectranthus_amboinicus" -> {
+                    searchViewModel.getSearchViewModel().observe(this, {listDataLeafes ->
+                        if (listDataLeafes != null){
+                            val leafes = listDataLeafes[9]
+
+                            binding.tvLeafesname.text = leafes.name
+                            binding.tvLeafesnameItalic.text = leafes.latinName
+                            binding.tvManfaat.text = leafes.benefits
+                            binding.tvKomposisi.text = leafes.composition
+                        }
+                    })
+                }
+
+                "Pongamia_pinnata" -> {
+                    searchViewModel.getSearchViewModel().observe(this, {listDataLeafes ->
+                        if (listDataLeafes != null){
+                            val leafes = listDataLeafes[14]
+
+                            binding.tvLeafesname.text = leafes.name
+                            binding.tvLeafesnameItalic.text = leafes.latinName
+                            binding.tvManfaat.text = leafes.benefits
+                            binding.tvKomposisi.text = leafes.composition
+                        }
+                    })
+                }
+
+                "Psidium_guajava" -> {
+                    searchViewModel.getSearchViewModel().observe(this, {listDataLeafes ->
+                        if (listDataLeafes != null){
+                            val leafes = listDataLeafes[8]
+
+                            binding.tvLeafesname.text = leafes.name
+                            binding.tvLeafesnameItalic.text = leafes.latinName
+                            binding.tvManfaat.text = leafes.benefits
+                            binding.tvKomposisi.text = leafes.composition
+                        }
+                    })
+                }
+
+                "Tinospora_cordifolia" -> {
+                    searchViewModel.getSearchViewModel().observe(this, {listDataLeafes ->
+                        if (listDataLeafes != null){
+                            val leafes = listDataLeafes[3]
+
+                            binding.tvLeafesname.text = leafes.name
+                            binding.tvLeafesnameItalic.text = leafes.latinName
+                            binding.tvManfaat.text = leafes.benefits
+                            binding.tvKomposisi.text = leafes.composition
+                        }
+                    })
+                }
+            }
 
             model.close()
 
