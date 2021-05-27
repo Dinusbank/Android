@@ -10,4 +10,5 @@
     <color name="gray">#E4E4E4</color>
     <color name="bgcolor_result">#F3F3F3</color>
     <color name="font_color">#334443</color>
+    <color name="accent_color">#3CA1A1</color>
 </resources>
