@@ -8,7 +8,14 @@ import android.view.View
 import com.bumptech.glide.Glide
 import com.dinusbank.tumbuhin.data.ResponseDataLeafes
 import com.dinusbank.tumbuhin.databinding.ActivityResultBinding
+import com.dinusbank.tumbuhin.ml.Medleaf
 import com.google.android.material.bottomsheet.BottomSheetBehavior
+import org.tensorflow.lite.DataType
+import org.tensorflow.lite.support.common.ops.NormalizeOp
+import org.tensorflow.lite.support.image.ImageProcessor
+import org.tensorflow.lite.support.image.TensorImage
+import org.tensorflow.lite.support.image.ops.ResizeOp
+import org.tensorflow.lite.support.tensorbuffer.TensorBuffer
 
 class ResultActivity : AppCompatActivity() {
 
@@ -73,6 +80,33 @@ class ResultActivity : AppCompatActivity() {
         val imageBitmap: Bitmap? = intent.getParcelableExtra(IMAGE_ID)
 
         if (imageBitmap != null){
+            val labels = application.assets.open("label.txt").bufferedReader().use {
+                it.readText()
+            }.split("\n")
+
+            val model = Medleaf.newInstance(this)
+
+            val imageProcessor = ImageProcessor.Builder()
+                .add(ResizeOp(168,168, ResizeOp.ResizeMethod.BILINEAR))
+                .add(NormalizeOp(127.5f, 127.5f))
+                .build()
+
+            var tImage = TensorImage(DataType.FLOAT32)
+            tImage.load(imageBitmap)
+            tImage = imageProcessor.process(tImage)
+
+            val inputFeature0 = TensorBuffer.createFixedSize(intArrayOf(1, 168, 168, 3), DataType.FLOAT32)
+            inputFeature0.loadBuffer(tImage.buffer)
+
+            val outputs = model.process(inputFeature0)
+            val outputFeature0 = outputs.outputFeature0AsTensorBuffer
+
+            val max = getMax(outputFeature0.floatArray)
+
+            binding.tvLeafesnameItalic.text = labels[max]
+
+            model.close()
+
             Glide.with(this)
                 .load(imageBitmap)
                 .override(312,416)
@@ -91,5 +125,20 @@ class ResultActivity : AppCompatActivity() {
             .load(dataLeafes.imageLeafes)
             .override(600,300)
             .into(binding.ivLeafes)
+    }
+
+    private fun getMax(arr:FloatArray) : Int{
+        var ind = 0
+        var min = 0.0f
+
+        for(i in 0..23)
+        {
+            if(arr[i] > min)
+            {
+                min = arr[i]
+                ind = i
+            }
+        }
+        return ind
     }
 }

@@ -69,7 +69,7 @@
             style="@style/LeafesText_bold"
             android:layout_marginStart="@dimen/sixteen_dp"
             android:layout_marginTop="28dp"
-            android:text="@string/nama_tumbuhan" />
+            android:text="@string/load" />
 
         <TextView
             android:id="@+id/tv_leafesname_italic"
@@ -108,7 +108,7 @@
             android:layout_marginTop="@dimen/sixteen_dp"
             android:layout_marginEnd="@dimen/sixteen_dp"
             android:fontFamily="@font/poppins"
-            android:text="@string/manfaat_example"
+            android:text="@string/load"
             android:textColor="@color/font_color"
             android:textSize="@dimen/fourteen_sp" />
 
@@ -132,7 +132,7 @@
             android:layout_marginEnd="@dimen/sixteen_dp"
             android:layout_marginBottom="@dimen/sixteen_dp"
             android:fontFamily="@font/poppins"
-            android:text="@string/composition_example"
+            android:text="@string/load"
             android:textColor="@color/font_color"
             android:textSize="@dimen/fourteen_sp" />
 
