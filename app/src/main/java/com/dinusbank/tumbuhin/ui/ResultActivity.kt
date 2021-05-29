@@ -85,16 +85,14 @@ class ResultActivity : AppCompatActivity() {
 
                 val imageProcessor = ImageProcessor.Builder()
                     .add(ResizeOp(224,224, ResizeOp.ResizeMethod.BILINEAR))
-                    .add(NormalizeOp(127.5f, 127.5f))
                     .build()
 
-                var tImage = TensorImage(DataType.FLOAT32)
+                var tImage = TensorImage(DataType.UINT8)
                 tImage.load(imageBitmap)
                 tImage = imageProcessor.process(tImage)
 
                 val outputs = model.process(tImage)
                 val probability = outputs.probabilityAsCategoryList
-
 
                 val max = probability.maxByOrNull { it.score }
 
@@ -403,10 +401,9 @@ class ResultActivity : AppCompatActivity() {
 
             val imageProcessor = ImageProcessor.Builder()
                 .add(ResizeOp(224,224, ResizeOp.ResizeMethod.BILINEAR))
-                .add(NormalizeOp(127.5f, 127.5f))
                 .build()
 
-            var tImage = TensorImage(DataType.FLOAT32)
+            var tImage = TensorImage(DataType.UINT8)
             tImage.load(imageBitmap)
             tImage = imageProcessor.process(tImage)
 
