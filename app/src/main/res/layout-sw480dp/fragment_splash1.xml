@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ui.splash.SplashFragment1">
+
+    <ImageView
+        android:layout_width="334dp"
+        android:layout_height="163dp"
+        android:src="@drawable/logo_main"
+        android:layout_gravity="center"
+        android:scaleType="centerCrop"
+        android:layout_marginTop="213dp"
+        android:contentDescription="@string/tumbuhin_logo" />
+
+    <Button
+        android:id="@+id/btn_start"
+        android:layout_width="219dp"
+        android:layout_height="40dp"
+        android:fontFamily="@font/poppins"
+        android:textColor="@color/white"
+        android:layout_marginTop="280dp"
+        android:layout_gravity="center"
+        android:text="@string/start"
+        android:background="@drawable/rounded_btn"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/poppins"
+        android:text="@string/project_by"
+        android:layout_gravity="center"
+        android:gravity="center"
+        android:textColor="@color/font_color"
+        android:textSize="@dimen/ten_sp"
+        android:layout_marginTop="27dp" />
+
+</LinearLayout>

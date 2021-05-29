@@ -13,4 +13,5 @@
     <dimen name="onehoundredeleven_dp">111dp</dimen>
     <dimen name="twelve_sp">12sp</dimen>
     <dimen name="ten_sp">10sp</dimen>
+    <dimen name="twentyfour_sp">24sp</dimen>
 </resources>

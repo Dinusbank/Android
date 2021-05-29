@@ -10,7 +10,7 @@ import android.provider.MediaStore
 import android.view.View
 import androidx.lifecycle.ViewModelProvider
 import com.bumptech.glide.Glide
-import com.dinusbank.tumbuhin.data.ResponseDataLeafes
+import com.dinusbank.tumbuhin.data.remote.responses.ResponseDataLeafes
 import com.dinusbank.tumbuhin.databinding.ActivityResultBinding
 import com.dinusbank.tumbuhin.ml.Medleaf
 import com.dinusbank.tumbuhin.viewmodel.SearchViewModel
@@ -20,7 +20,6 @@ import org.tensorflow.lite.support.common.ops.NormalizeOp
 import org.tensorflow.lite.support.image.ImageProcessor
 import org.tensorflow.lite.support.image.TensorImage
 import org.tensorflow.lite.support.image.ops.ResizeOp
-import org.tensorflow.lite.support.tensorbuffer.TensorBuffer
 
 class ResultActivity : AppCompatActivity() {
 
@@ -82,14 +81,10 @@ class ResultActivity : AppCompatActivity() {
             val imageBitmap = MediaStore.Images.Media.getBitmap(this.contentResolver, setImage)
 
             if (imageBitmap != null){
-                val labels = application.assets.open("label.txt").bufferedReader().use {
-                    it.readText()
-                }.split("\n")
-
                 val model = Medleaf.newInstance(this)
 
                 val imageProcessor = ImageProcessor.Builder()
-                    .add(ResizeOp(168,168, ResizeOp.ResizeMethod.BILINEAR))
+                    .add(ResizeOp(224,224, ResizeOp.ResizeMethod.BILINEAR))
                     .add(NormalizeOp(127.5f, 127.5f))
                     .build()
 
@@ -97,22 +92,23 @@ class ResultActivity : AppCompatActivity() {
                 tImage.load(imageBitmap)
                 tImage = imageProcessor.process(tImage)
 
-                val inputFeature0 = TensorBuffer.createFixedSize(intArrayOf(1, 168, 168, 3), DataType.FLOAT32)
-                inputFeature0.loadBuffer(tImage.buffer)
+                val outputs = model.process(tImage)
+                val probability = outputs.probabilityAsCategoryList
 
-                val outputs = model.process(inputFeature0)
-                val outputFeature0 = outputs.outputFeature0AsTensorBuffer
 
-                val max = getMax(outputFeature0.floatArray)
+                val max = probability.maxByOrNull { it.score }
 
-                when(labels[max]){
+                if (max != null) {
+                    binding.tvLeafesnameItalic.text = max.label
+                }
+
+                when(max?.label){
                     "Alpinia_galanga" -> {
                         searchViewModel.getSearchViewModel().observe(this, {listDataLeafes ->
                             if (listDataLeafes != null){
                                 val leafes = listDataLeafes[13]
 
                                 binding.tvLeafesname.text = leafes.name
-                                binding.tvLeafesnameItalic.text = leafes.latinName
                                 binding.tvManfaat.text = leafes.benefits
                                 binding.tvKomposisi.text = leafes.composition
                             }
@@ -125,7 +121,6 @@ class ResultActivity : AppCompatActivity() {
                                 val leafes = listDataLeafes[1]
 
                                 binding.tvLeafesname.text = leafes.name
-                                binding.tvLeafesnameItalic.text = leafes.latinName
                                 binding.tvManfaat.text = leafes.benefits
                                 binding.tvKomposisi.text = leafes.composition
                             }
@@ -138,7 +133,6 @@ class ResultActivity : AppCompatActivity() {
                                 val leafes = listDataLeafes[19]
 
                                 binding.tvLeafesname.text = leafes.name
-                                binding.tvLeafesnameItalic.text = leafes.latinName
                                 binding.tvManfaat.text = leafes.benefits
                                 binding.tvKomposisi.text = leafes.composition
                             }
@@ -151,7 +145,6 @@ class ResultActivity : AppCompatActivity() {
                                 val leafes = listDataLeafes[7]
 
                                 binding.tvLeafesname.text = leafes.name
-                                binding.tvLeafesnameItalic.text = leafes.latinName
                                 binding.tvManfaat.text = leafes.benefits
                                 binding.tvKomposisi.text = leafes.composition
                             }
@@ -164,7 +157,6 @@ class ResultActivity : AppCompatActivity() {
                                 val leafes = listDataLeafes[6]
 
                                 binding.tvLeafesname.text = leafes.name
-                                binding.tvLeafesnameItalic.text = leafes.latinName
                                 binding.tvManfaat.text = leafes.benefits
                                 binding.tvKomposisi.text = leafes.composition
                             }
@@ -177,7 +169,6 @@ class ResultActivity : AppCompatActivity() {
                                 val leafes = listDataLeafes[2]
 
                                 binding.tvLeafesname.text = leafes.name
-                                binding.tvLeafesnameItalic.text = leafes.latinName
                                 binding.tvManfaat.text = leafes.benefits
                                 binding.tvKomposisi.text = leafes.composition
                             }
@@ -190,7 +181,6 @@ class ResultActivity : AppCompatActivity() {
                                 val leafes = listDataLeafes[20]
 
                                 binding.tvLeafesname.text = leafes.name
-                                binding.tvLeafesnameItalic.text = leafes.latinName
                                 binding.tvManfaat.text = leafes.benefits
                                 binding.tvKomposisi.text = leafes.composition
                             }
@@ -203,7 +193,6 @@ class ResultActivity : AppCompatActivity() {
                                 val leafes = listDataLeafes[4]
 
                                 binding.tvLeafesname.text = leafes.name
-                                binding.tvLeafesnameItalic.text = leafes.latinName
                                 binding.tvManfaat.text = leafes.benefits
                                 binding.tvKomposisi.text = leafes.composition
                             }
@@ -216,7 +205,6 @@ class ResultActivity : AppCompatActivity() {
                                 val leafes = listDataLeafes[12]
 
                                 binding.tvLeafesname.text = leafes.name
-                                binding.tvLeafesnameItalic.text = leafes.latinName
                                 binding.tvManfaat.text = leafes.benefits
                                 binding.tvKomposisi.text = leafes.composition
                             }
@@ -229,7 +217,6 @@ class ResultActivity : AppCompatActivity() {
                                 val leafes = listDataLeafes[11]
 
                                 binding.tvLeafesname.text = leafes.name
-                                binding.tvLeafesnameItalic.text = leafes.latinName
                                 binding.tvManfaat.text = leafes.benefits
                                 binding.tvKomposisi.text = leafes.composition
                             }
@@ -242,7 +229,6 @@ class ResultActivity : AppCompatActivity() {
                                 val leafes = listDataLeafes[0]
 
                                 binding.tvLeafesname.text = leafes.name
-                                binding.tvLeafesnameItalic.text = leafes.latinName
                                 binding.tvManfaat.text = leafes.benefits
                                 binding.tvKomposisi.text = leafes.composition
                             }
@@ -255,7 +241,6 @@ class ResultActivity : AppCompatActivity() {
                                 val leafes = listDataLeafes[5]
 
                                 binding.tvLeafesname.text = leafes.name
-                                binding.tvLeafesnameItalic.text = leafes.latinName
                                 binding.tvManfaat.text = leafes.benefits
                                 binding.tvKomposisi.text = leafes.composition
                             }
@@ -268,7 +253,6 @@ class ResultActivity : AppCompatActivity() {
                                 val leafes = listDataLeafes[16]
 
                                 binding.tvLeafesname.text = leafes.name
-                                binding.tvLeafesnameItalic.text = leafes.latinName
                                 binding.tvManfaat.text = leafes.benefits
                                 binding.tvKomposisi.text = leafes.composition
                             }
@@ -281,7 +265,6 @@ class ResultActivity : AppCompatActivity() {
                                 val leafes = listDataLeafes[15]
 
                                 binding.tvLeafesname.text = leafes.name
-                                binding.tvLeafesnameItalic.text = leafes.latinName
                                 binding.tvManfaat.text = leafes.benefits
                                 binding.tvKomposisi.text = leafes.composition
                             }
@@ -294,7 +277,6 @@ class ResultActivity : AppCompatActivity() {
                                 val leafes = listDataLeafes[17]
 
                                 binding.tvLeafesname.text = leafes.name
-                                binding.tvLeafesnameItalic.text = leafes.latinName
                                 binding.tvManfaat.text = leafes.benefits
                                 binding.tvKomposisi.text = leafes.composition
                             }
@@ -307,7 +289,6 @@ class ResultActivity : AppCompatActivity() {
                                 val leafes = listDataLeafes[10]
 
                                 binding.tvLeafesname.text = leafes.name
-                                binding.tvLeafesnameItalic.text = leafes.latinName
                                 binding.tvManfaat.text = leafes.benefits
                                 binding.tvKomposisi.text = leafes.composition
                             }
@@ -320,7 +301,6 @@ class ResultActivity : AppCompatActivity() {
                                 val leafes = listDataLeafes[22]
 
                                 binding.tvLeafesname.text = leafes.name
-                                binding.tvLeafesnameItalic.text = leafes.latinName
                                 binding.tvManfaat.text = leafes.benefits
                                 binding.tvKomposisi.text = leafes.composition
                             }
@@ -333,7 +313,6 @@ class ResultActivity : AppCompatActivity() {
                                 val leafes = listDataLeafes[18]
 
                                 binding.tvLeafesname.text = leafes.name
-                                binding.tvLeafesnameItalic.text = leafes.latinName
                                 binding.tvManfaat.text = leafes.benefits
                                 binding.tvKomposisi.text = leafes.composition
                             }
@@ -346,7 +325,6 @@ class ResultActivity : AppCompatActivity() {
                                 val leafes = listDataLeafes[21]
 
                                 binding.tvLeafesname.text = leafes.name
-                                binding.tvLeafesnameItalic.text = leafes.latinName
                                 binding.tvManfaat.text = leafes.benefits
                                 binding.tvKomposisi.text = leafes.composition
                             }
@@ -359,7 +337,6 @@ class ResultActivity : AppCompatActivity() {
                                 val leafes = listDataLeafes[9]
 
                                 binding.tvLeafesname.text = leafes.name
-                                binding.tvLeafesnameItalic.text = leafes.latinName
                                 binding.tvManfaat.text = leafes.benefits
                                 binding.tvKomposisi.text = leafes.composition
                             }
@@ -372,7 +349,6 @@ class ResultActivity : AppCompatActivity() {
                                 val leafes = listDataLeafes[14]
 
                                 binding.tvLeafesname.text = leafes.name
-                                binding.tvLeafesnameItalic.text = leafes.latinName
                                 binding.tvManfaat.text = leafes.benefits
                                 binding.tvKomposisi.text = leafes.composition
                             }
@@ -385,7 +361,6 @@ class ResultActivity : AppCompatActivity() {
                                 val leafes = listDataLeafes[8]
 
                                 binding.tvLeafesname.text = leafes.name
-                                binding.tvLeafesnameItalic.text = leafes.latinName
                                 binding.tvManfaat.text = leafes.benefits
                                 binding.tvKomposisi.text = leafes.composition
                             }
@@ -398,7 +373,6 @@ class ResultActivity : AppCompatActivity() {
                                 val leafes = listDataLeafes[3]
 
                                 binding.tvLeafesname.text = leafes.name
-                                binding.tvLeafesnameItalic.text = leafes.latinName
                                 binding.tvManfaat.text = leafes.benefits
                                 binding.tvKomposisi.text = leafes.composition
                             }
@@ -425,14 +399,10 @@ class ResultActivity : AppCompatActivity() {
         searchViewModel.getLeafes()
 
         if (imageBitmap != null){
-            val labels = application.assets.open("label.txt").bufferedReader().use {
-                it.readText()
-            }.split("\n")
-
             val model = Medleaf.newInstance(this)
 
             val imageProcessor = ImageProcessor.Builder()
-                .add(ResizeOp(168,168, ResizeOp.ResizeMethod.BILINEAR))
+                .add(ResizeOp(224,224, ResizeOp.ResizeMethod.BILINEAR))
                 .add(NormalizeOp(127.5f, 127.5f))
                 .build()
 
@@ -440,22 +410,23 @@ class ResultActivity : AppCompatActivity() {
             tImage.load(imageBitmap)
             tImage = imageProcessor.process(tImage)
 
-            val inputFeature0 = TensorBuffer.createFixedSize(intArrayOf(1, 168, 168, 3), DataType.FLOAT32)
-            inputFeature0.loadBuffer(tImage.buffer)
+            val outputs = model.process(tImage)
+            val probability = outputs.probabilityAsCategoryList
 
-            val outputs = model.process(inputFeature0)
-            val outputFeature0 = outputs.outputFeature0AsTensorBuffer
 
-            val max = getMax(outputFeature0.floatArray)
+            val max = probability.maxByOrNull { it.score }
 
-            when(labels[max]){
+            if (max != null) {
+                binding.tvLeafesnameItalic.text = max.label
+            }
+
+            when(max?.label){
                 "Alpinia_galanga" -> {
                     searchViewModel.getSearchViewModel().observe(this, {listDataLeafes ->
                         if (listDataLeafes != null){
                             val leafes = listDataLeafes[13]
 
                             binding.tvLeafesname.text = leafes.name
-                            binding.tvLeafesnameItalic.text = leafes.latinName
                             binding.tvManfaat.text = leafes.benefits
                             binding.tvKomposisi.text = leafes.composition
                         }
@@ -468,7 +439,6 @@ class ResultActivity : AppCompatActivity() {
                             val leafes = listDataLeafes[1]
 
                             binding.tvLeafesname.text = leafes.name
-                            binding.tvLeafesnameItalic.text = leafes.latinName
                             binding.tvManfaat.text = leafes.benefits
                             binding.tvKomposisi.text = leafes.composition
                         }
@@ -481,7 +451,6 @@ class ResultActivity : AppCompatActivity() {
                             val leafes = listDataLeafes[19]
 
                             binding.tvLeafesname.text = leafes.name
-                            binding.tvLeafesnameItalic.text = leafes.latinName
                             binding.tvManfaat.text = leafes.benefits
                             binding.tvKomposisi.text = leafes.composition
                         }
@@ -494,7 +463,6 @@ class ResultActivity : AppCompatActivity() {
                             val leafes = listDataLeafes[7]
 
                             binding.tvLeafesname.text = leafes.name
-                            binding.tvLeafesnameItalic.text = leafes.latinName
                             binding.tvManfaat.text = leafes.benefits
                             binding.tvKomposisi.text = leafes.composition
                         }
@@ -507,7 +475,6 @@ class ResultActivity : AppCompatActivity() {
                             val leafes = listDataLeafes[6]
 
                             binding.tvLeafesname.text = leafes.name
-                            binding.tvLeafesnameItalic.text = leafes.latinName
                             binding.tvManfaat.text = leafes.benefits
                             binding.tvKomposisi.text = leafes.composition
                         }
@@ -520,7 +487,6 @@ class ResultActivity : AppCompatActivity() {
                             val leafes = listDataLeafes[2]
 
                             binding.tvLeafesname.text = leafes.name
-                            binding.tvLeafesnameItalic.text = leafes.latinName
                             binding.tvManfaat.text = leafes.benefits
                             binding.tvKomposisi.text = leafes.composition
                         }
@@ -533,7 +499,6 @@ class ResultActivity : AppCompatActivity() {
                             val leafes = listDataLeafes[20]
 
                             binding.tvLeafesname.text = leafes.name
-                            binding.tvLeafesnameItalic.text = leafes.latinName
                             binding.tvManfaat.text = leafes.benefits
                             binding.tvKomposisi.text = leafes.composition
                         }
@@ -546,7 +511,6 @@ class ResultActivity : AppCompatActivity() {
                             val leafes = listDataLeafes[4]
 
                             binding.tvLeafesname.text = leafes.name
-                            binding.tvLeafesnameItalic.text = leafes.latinName
                             binding.tvManfaat.text = leafes.benefits
                             binding.tvKomposisi.text = leafes.composition
                         }
@@ -559,7 +523,6 @@ class ResultActivity : AppCompatActivity() {
                             val leafes = listDataLeafes[12]
 
                             binding.tvLeafesname.text = leafes.name
-                            binding.tvLeafesnameItalic.text = leafes.latinName
                             binding.tvManfaat.text = leafes.benefits
                             binding.tvKomposisi.text = leafes.composition
                         }
@@ -572,7 +535,6 @@ class ResultActivity : AppCompatActivity() {
                             val leafes = listDataLeafes[11]
 
                             binding.tvLeafesname.text = leafes.name
-                            binding.tvLeafesnameItalic.text = leafes.latinName
                             binding.tvManfaat.text = leafes.benefits
                             binding.tvKomposisi.text = leafes.composition
                         }
@@ -585,7 +547,6 @@ class ResultActivity : AppCompatActivity() {
                             val leafes = listDataLeafes[0]
 
                             binding.tvLeafesname.text = leafes.name
-                            binding.tvLeafesnameItalic.text = leafes.latinName
                             binding.tvManfaat.text = leafes.benefits
                             binding.tvKomposisi.text = leafes.composition
                         }
@@ -598,7 +559,6 @@ class ResultActivity : AppCompatActivity() {
                             val leafes = listDataLeafes[5]
 
                             binding.tvLeafesname.text = leafes.name
-                            binding.tvLeafesnameItalic.text = leafes.latinName
                             binding.tvManfaat.text = leafes.benefits
                             binding.tvKomposisi.text = leafes.composition
                         }
@@ -611,7 +571,6 @@ class ResultActivity : AppCompatActivity() {
                             val leafes = listDataLeafes[16]
 
                             binding.tvLeafesname.text = leafes.name
-                            binding.tvLeafesnameItalic.text = leafes.latinName
                             binding.tvManfaat.text = leafes.benefits
                             binding.tvKomposisi.text = leafes.composition
                         }
@@ -624,7 +583,6 @@ class ResultActivity : AppCompatActivity() {
                             val leafes = listDataLeafes[15]
 
                             binding.tvLeafesname.text = leafes.name
-                            binding.tvLeafesnameItalic.text = leafes.latinName
                             binding.tvManfaat.text = leafes.benefits
                             binding.tvKomposisi.text = leafes.composition
                         }
@@ -637,7 +595,6 @@ class ResultActivity : AppCompatActivity() {
                             val leafes = listDataLeafes[17]
 
                             binding.tvLeafesname.text = leafes.name
-                            binding.tvLeafesnameItalic.text = leafes.latinName
                             binding.tvManfaat.text = leafes.benefits
                             binding.tvKomposisi.text = leafes.composition
                         }
@@ -650,7 +607,6 @@ class ResultActivity : AppCompatActivity() {
                             val leafes = listDataLeafes[10]
 
                             binding.tvLeafesname.text = leafes.name
-                            binding.tvLeafesnameItalic.text = leafes.latinName
                             binding.tvManfaat.text = leafes.benefits
                             binding.tvKomposisi.text = leafes.composition
                         }
@@ -663,7 +619,6 @@ class ResultActivity : AppCompatActivity() {
                             val leafes = listDataLeafes[22]
 
                             binding.tvLeafesname.text = leafes.name
-                            binding.tvLeafesnameItalic.text = leafes.latinName
                             binding.tvManfaat.text = leafes.benefits
                             binding.tvKomposisi.text = leafes.composition
                         }
@@ -676,7 +631,6 @@ class ResultActivity : AppCompatActivity() {
                             val leafes = listDataLeafes[18]
 
                             binding.tvLeafesname.text = leafes.name
-                            binding.tvLeafesnameItalic.text = leafes.latinName
                             binding.tvManfaat.text = leafes.benefits
                             binding.tvKomposisi.text = leafes.composition
                         }
@@ -689,7 +643,6 @@ class ResultActivity : AppCompatActivity() {
                             val leafes = listDataLeafes[21]
 
                             binding.tvLeafesname.text = leafes.name
-                            binding.tvLeafesnameItalic.text = leafes.latinName
                             binding.tvManfaat.text = leafes.benefits
                             binding.tvKomposisi.text = leafes.composition
                         }
@@ -702,7 +655,6 @@ class ResultActivity : AppCompatActivity() {
                             val leafes = listDataLeafes[9]
 
                             binding.tvLeafesname.text = leafes.name
-                            binding.tvLeafesnameItalic.text = leafes.latinName
                             binding.tvManfaat.text = leafes.benefits
                             binding.tvKomposisi.text = leafes.composition
                         }
@@ -715,7 +667,6 @@ class ResultActivity : AppCompatActivity() {
                             val leafes = listDataLeafes[14]
 
                             binding.tvLeafesname.text = leafes.name
-                            binding.tvLeafesnameItalic.text = leafes.latinName
                             binding.tvManfaat.text = leafes.benefits
                             binding.tvKomposisi.text = leafes.composition
                         }
@@ -728,7 +679,6 @@ class ResultActivity : AppCompatActivity() {
                             val leafes = listDataLeafes[8]
 
                             binding.tvLeafesname.text = leafes.name
-                            binding.tvLeafesnameItalic.text = leafes.latinName
                             binding.tvManfaat.text = leafes.benefits
                             binding.tvKomposisi.text = leafes.composition
                         }
@@ -741,7 +691,6 @@ class ResultActivity : AppCompatActivity() {
                             val leafes = listDataLeafes[3]
 
                             binding.tvLeafesname.text = leafes.name
-                            binding.tvLeafesnameItalic.text = leafes.latinName
                             binding.tvManfaat.text = leafes.benefits
                             binding.tvKomposisi.text = leafes.composition
                         }
@@ -769,20 +718,5 @@ class ResultActivity : AppCompatActivity() {
             .load(dataLeafes.imageLeafes)
             .override(600,300)
             .into(binding.ivLeafes)
-    }
-
-    private fun getMax(arr:FloatArray) : Int{
-        var ind = 0
-        var min = 0.0f
-
-        for(i in 0..23)
-        {
-            if(arr[i] > min)
-            {
-                min = arr[i]
-                ind = i
-            }
-        }
-        return ind
     }
 }

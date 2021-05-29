@@ -6,7 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.dinusbank.tumbuhin.R
-import com.dinusbank.tumbuhin.data.ResponseDataLeafes
+import com.dinusbank.tumbuhin.data.remote.responses.ResponseDataLeafes
 import com.dinusbank.tumbuhin.databinding.ItemPlantsBinding
 import com.dinusbank.tumbuhin.ui.ResultActivity
 import com.dinusbank.tumbuhin.ui.ResultActivity.Companion.ACTION_PICKER

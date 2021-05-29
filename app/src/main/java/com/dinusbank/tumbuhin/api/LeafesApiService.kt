@@ -1,6 +1,6 @@
 package com.dinusbank.tumbuhin.api
 
-import com.dinusbank.tumbuhin.data.ResponseLeafes
+import com.dinusbank.tumbuhin.data.remote.responses.ResponseLeafes
 import retrofit2.Call
 import retrofit2.http.Field
 import retrofit2.http.FormUrlEncoded

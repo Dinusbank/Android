@@ -5,8 +5,8 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.dinusbank.tumbuhin.api.ApiCall
-import com.dinusbank.tumbuhin.data.ResponseDataLeafes
-import com.dinusbank.tumbuhin.data.ResponseLeafes
+import com.dinusbank.tumbuhin.data.remote.responses.ResponseDataLeafes
+import com.dinusbank.tumbuhin.data.remote.responses.ResponseLeafes
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response

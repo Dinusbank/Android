@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@color/white"
+    tools:context=".ui.splash.SplashFragment2">
+
+    <ImageView
+        android:layout_width="68dp"
+        android:layout_height="31dp"
+        android:src="@drawable/logo_main"
+        android:layout_gravity="end"
+        android:scaleType="centerCrop"
+        android:layout_marginTop="18dp"
+        android:layout_marginEnd="12dp"
+        android:contentDescription="@string/small_logo" />
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="282dp"
+        android:src="@drawable/vector_guidescreen_1"
+        android:layout_gravity="center"
+        android:layout_marginStart="@dimen/sixteen_dp"
+        android:layout_marginEnd="@dimen/sixteen_dp"
+        android:layout_marginTop="145dp"
+        android:contentDescription="@string/guide_picture" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="54dp"
+        android:fontFamily="@font/poppins"
+        android:textSize="18sp"
+        android:layout_marginStart="@dimen/sixteen_dp"
+        android:layout_marginEnd="@dimen/sixteen_dp"
+        android:textColor="@color/font_color"
+        android:text="@string/splash2_text"
+        android:gravity="center"
+        android:layout_gravity="center"
+        android:layout_marginTop="41dp"/>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="80dp"
+        android:layout_marginStart="@dimen/sixteen_dp"
+        android:layout_marginEnd="@dimen/sixteen_dp">
+
+        <ImageView
+            android:layout_width="67dp"
+            android:layout_height="16dp"
+            android:src="@drawable/progress_icon_1"
+            android:layout_marginTop="61dp"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true"
+            android:contentDescription="@string/progress_icon" />
+
+        <ImageView
+            android:id="@+id/btn_next1"
+            android:layout_width="60dp"
+            android:layout_height="40dp"
+            android:src="@drawable/nextbutton_guidescreen"
+            android:scaleType="centerCrop"
+            android:layout_marginTop="49dp"
+            android:layout_alignParentEnd="true"
+            android:contentDescription="@string/next_button" />
+
+    </RelativeLayout>
+
+</LinearLayout>

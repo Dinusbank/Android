@@ -8,7 +8,7 @@ import android.view.ViewGroup
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.dinusbank.tumbuhin.adapter.LeafesAdapter
-import com.dinusbank.tumbuhin.data.ResponseDataLeafes
+import com.dinusbank.tumbuhin.data.remote.responses.ResponseDataLeafes
 import com.dinusbank.tumbuhin.databinding.FragmentSearchBinding
 import com.dinusbank.tumbuhin.viewmodel.SearchViewModel
 

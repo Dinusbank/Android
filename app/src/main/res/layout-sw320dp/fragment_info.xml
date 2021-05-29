@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@color/white"
+    tools:context=".ui.main.InfoFragment">
+
+    <ImageView
+        android:layout_width="314dp"
+        android:layout_height="143dp"
+        android:src="@drawable/logo_main"
+        android:layout_gravity="center"
+        android:scaleType="centerCrop"
+        android:background="@drawable/logo_frame"
+        android:layout_marginTop="224dp"
+        android:contentDescription="@string/tumbuhin_logo" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/desc_app"
+        android:fontFamily="@font/poppins"
+        android:textSize="14sp"
+        android:layout_gravity="center"
+        android:textColor="@color/font_color"
+        android:layout_marginTop="5dp"/>
+
+</LinearLayout>
