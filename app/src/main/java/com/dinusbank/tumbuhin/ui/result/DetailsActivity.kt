@@ -59,7 +59,7 @@ class DetailsActivity : AppCompatActivity() {
 
             Glide.with(this)
                 .load(dataLeafes.imageLeafes)
-                .override(312,416)
+                .override(800,600)
                 .into(binding.ivLeafes)
         }
     }
