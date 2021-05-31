@@ -55,8 +55,6 @@ class DetailsActivity : AppCompatActivity() {
         if (dataLeafes.imageLeafes != null){
             Handler().postDelayed({ showProgressLoading(false) }, 1000)
 
-            binding.ivLeafes.visibility = View.VISIBLE
-
             Glide.with(this)
                 .load(dataLeafes.imageLeafes)
                 .override(800,600)

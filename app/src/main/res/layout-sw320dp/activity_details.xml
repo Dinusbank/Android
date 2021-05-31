@@ -39,7 +39,7 @@
         android:contentDescription="@string/image_leafes"
         android:src="@drawable/leafes_preview"
         android:layout_marginTop="80dp"
-        android:visibility="gone"
+        android:visibility="visible"
         app:layout_constraintTop_toBottomOf="@+id/btn_back" />
 
     <ProgressBar
