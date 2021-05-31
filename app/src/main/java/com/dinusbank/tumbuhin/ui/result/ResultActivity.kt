@@ -58,14 +58,6 @@ class ResultActivity : AppCompatActivity() {
         }
     }
 
-    private fun showProgressLoading(state: Boolean){
-        if (state){
-            binding.progressBar.visibility = View.VISIBLE
-        } else{
-            binding.progressBar.visibility = View.GONE
-        }
-    }
-
     private fun setImageFromGallery(){
         val bundle: Bundle? = intent.extras
 
@@ -94,6 +86,61 @@ class ResultActivity : AppCompatActivity() {
                 .into(binding.ivLeafes)
 
             setTensorflowModel(imageBitmap)
+        }
+    }
+
+    private fun setTensorflowModel(imageBitmap: Bitmap){
+        val model = Medleaf.newInstance(this)
+
+        val imageProcessor = ImageProcessor.Builder()
+            .add(ResizeOp(224,224, ResizeOp.ResizeMethod.BILINEAR))
+            .build()
+
+        var tImage = TensorImage(DataType.UINT8)
+        tImage.load(imageBitmap)
+        tImage = imageProcessor.process(tImage)
+
+        val outputs = model.process(tImage)
+        val probability = outputs.probabilityAsCategoryList
+
+        val max = probability.maxByOrNull { it.score }
+
+        if (max != null) {
+            val percentage = (max.score / 1) * 100
+
+            if (percentage > 30){
+                (DecimalFormat("##.#").format(percentage) + " %").also { binding.tvAccuracy.text = it }
+                binding.tvLeafesnameItalic.text = max.label
+                setNormalVisibility()
+            } else{
+                setErrorVisibility()
+            }
+        }
+
+        max?.label?.let { getData(it) }
+
+        model.close()
+    }
+
+    private fun setErrorVisibility(){
+        binding.icErrormsg.visibility = View.VISIBLE
+        binding.tvErrormsg.visibility = View.VISIBLE
+        binding.ivLeafes.visibility = View.GONE
+        binding.sheet.visibility = View.GONE
+    }
+
+    private fun setNormalVisibility(){
+        binding.icErrormsg.visibility = View.GONE
+        binding.tvErrormsg.visibility = View.GONE
+        binding.ivLeafes.visibility = View.VISIBLE
+        binding.sheet.visibility = View.VISIBLE
+    }
+
+    private fun showProgressLoading(state: Boolean){
+        if (state){
+            binding.progressBar.visibility = View.VISIBLE
+        } else{
+            binding.progressBar.visibility = View.GONE
         }
     }
 
@@ -378,52 +425,5 @@ class ResultActivity : AppCompatActivity() {
                 })
             }
         }
-    }
-
-    private fun setTensorflowModel(imageBitmap: Bitmap){
-        val model = Medleaf.newInstance(this)
-
-        val imageProcessor = ImageProcessor.Builder()
-            .add(ResizeOp(224,224, ResizeOp.ResizeMethod.BILINEAR))
-            .build()
-
-        var tImage = TensorImage(DataType.UINT8)
-        tImage.load(imageBitmap)
-        tImage = imageProcessor.process(tImage)
-
-        val outputs = model.process(tImage)
-        val probability = outputs.probabilityAsCategoryList
-
-        val max = probability.maxByOrNull { it.score }
-
-        if (max != null) {
-            val percentage = (max.score / 1) * 100
-
-            if (percentage > 30){
-                (DecimalFormat("##.#").format(percentage) + " %").also { binding.tvAccuracy.text = it }
-                binding.tvLeafesnameItalic.text = max.label
-                setNormalVisibility()
-            } else{
-                setErrorVisibility()
-            }
-        }
-
-        max?.label?.let { getData(it) }
-
-        model.close()
-    }
-
-    private fun setErrorVisibility(){
-        binding.icErrormsg.visibility = View.VISIBLE
-        binding.tvErrormsg.visibility = View.VISIBLE
-        binding.ivLeafes.visibility = View.GONE
-        binding.sheet.visibility = View.GONE
-    }
-
-    private fun setNormalVisibility(){
-        binding.icErrormsg.visibility = View.GONE
-        binding.tvErrormsg.visibility = View.GONE
-        binding.ivLeafes.visibility = View.VISIBLE
-        binding.sheet.visibility = View.VISIBLE
     }
 }

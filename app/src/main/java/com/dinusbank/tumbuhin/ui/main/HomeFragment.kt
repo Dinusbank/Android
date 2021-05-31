@@ -25,7 +25,6 @@ import com.dinusbank.tumbuhin.ui.result.ResultActivity.Companion.IMAGE_ID
 import com.dinusbank.tumbuhin.viewmodel.SearchViewModel
 import com.dinusbank.tumbuhin.viewmodel.ViewModelFactory
 import com.dinusbank.tumbuhin.vo.Status
-import java.io.ByteArrayOutputStream
 
 class HomeFragment : Fragment() {
 
@@ -52,6 +51,10 @@ class HomeFragment : Fragment() {
 
         val leafesAdapter = LeafesAdapter()
 
+        setData(leafesAdapter)
+    }
+
+    private fun setData(leafesAdapter: LeafesAdapter){
         activity?.let {
             searchViewModel.getLeafes().observe(it, { leafes ->
                 if (leafes != null){

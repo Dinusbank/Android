@@ -1,0 +1,207 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.coordinatorlayout.widget.CoordinatorLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@color/bgcolor_result"
+    tools:context=".ui.result.ResultActivity">
+
+    <ImageView
+        android:id="@+id/btn_back"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_marginStart="14dp"
+        android:layout_marginTop="15dp"
+        android:contentDescription="@string/back_button"
+        android:scaleType="centerCrop"
+        android:src="@drawable/backbutton_detailpage" />
+
+    <ImageView
+        android:layout_width="68dp"
+        android:layout_height="31dp"
+        android:scaleType="centerCrop"
+        android:src="@drawable/logo_main"
+        android:layout_gravity="end"
+        android:layout_marginTop="18dp"
+        android:layout_marginEnd="12dp"
+        android:contentDescription="@string/small_logo" />
+
+    <ImageView
+        android:id="@+id/ic_errormsg"
+        android:layout_width="wrap_content"
+        android:layout_height="300dp"
+        android:layout_marginStart="@dimen/sixteen_dp"
+        android:layout_marginEnd="@dimen/sixteen_dp"
+        android:visibility="gone"
+        android:layout_marginTop="140dp"
+        android:src="@drawable/ic_scanerror"
+        android:contentDescription="@string/notfound_message" />
+
+    <TextView
+        android:id="@+id/tv_errormsg"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textSize="@dimen/fourteen_sp"
+        android:textColor="@color/font_color"
+        android:layout_marginTop="470dp"
+        android:layout_marginStart="@dimen/sixteen_dp"
+        android:layout_marginEnd="@dimen/sixteen_dp"
+        android:fontFamily="@font/poppins"
+        android:text="@string/notfound_message"
+        android:visibility="gone"
+        android:gravity="center"/>
+
+    <ImageView
+        android:id="@+id/iv_leafes"
+        android:layout_width="350dp"
+        android:layout_height="400dp"
+        android:layout_marginStart="@dimen/sixteen_dp"
+        android:layout_marginEnd="@dimen/sixteen_dp"
+        android:layout_gravity="center_horizontal"
+        android:contentDescription="@string/image_leafes"
+        android:src="@drawable/leafes_preview"
+        android:layout_marginTop="110dp"
+        app:layout_constraintTop_toBottomOf="@+id/btn_back" />
+
+    <ProgressBar
+        android:id="@+id/progress_bar"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_gravity="center"
+        android:indeterminateDuration="50" />
+
+    <RelativeLayout
+        android:id="@+id/sheet"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/shape_rounded"
+        android:elevation="@dimen/sixteen_dp"
+        app:layout_behavior="com.google.android.material.bottomsheet.BottomSheetBehavior" >
+
+        <ImageView
+            android:id="@+id/ic_swipe"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="10dp"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentEnd="true"
+            android:src="@drawable/rectangle_2"
+            android:contentDescription="@string/rectangle" />
+
+        <TextView
+            android:id="@+id/tv_leafesname"
+            style="@style/LeafesText_bold"
+            android:layout_marginStart="@dimen/sixteen_dp"
+            android:layout_alignParentTop="true"
+            android:layout_below="@id/ic_swipe"
+            android:layout_alignParentStart="true"
+            android:layout_marginTop="28dp"
+            android:text="@string/load" />
+
+        <TextView
+            android:id="@+id/tv_leafesname_italic"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/tv_leafesname"
+            android:layout_marginStart="@dimen/sixteen_dp"
+            android:layout_alignParentStart="true"
+            android:layout_marginBottom="13dp"
+            android:fontFamily="@font/poppins"
+            android:text="@string/nama_tumbuhan"
+            android:textColor="@color/font_color"
+            android:textSize="@dimen/ten_sp"
+            android:textStyle="italic" />
+
+        <TextView
+            android:id="@+id/tv_accuracy"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/poppins_bold"
+            android:text="@string/percentage"
+            android:gravity="center"
+            android:layout_below="@id/ic_swipe"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentTop="true"
+            android:layout_marginEnd="20dp"
+            android:layout_marginTop="20dp"
+            android:background="@drawable/oval_textview"
+            android:textColor="@color/white"
+            android:textSize="@dimen/twelve_sp"
+            tools:ignore="RelativeOverlap" />
+
+        <ImageView
+            android:id="@+id/rectangles"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/sixteen_dp"
+            android:layout_marginEnd="@dimen/sixteen_dp"
+            android:layout_marginBottom="@dimen/sixteen_dp"
+            android:contentDescription="@string/rectangle"
+            android:layout_below="@id/tv_leafesname_italic"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentEnd="true"
+            android:src="@drawable/asset_rectangle" />
+
+        <TextView
+            android:id="@+id/manfaat"
+            style="@style/LeafesText_bold"
+            android:gravity="center"
+            android:layout_marginStart="@dimen/sixteen_dp"
+            android:layout_below="@id/rectangles"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentEnd="true"
+            android:text="@string/manfaat_tumbuhan" />
+
+        <TextView
+            android:id="@+id/tv_manfaat"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/sixteen_dp"
+            android:layout_marginTop="@dimen/sixteen_dp"
+            android:layout_marginEnd="@dimen/sixteen_dp"
+            android:fontFamily="@font/poppins"
+            android:text="@string/load"
+            android:textColor="@color/font_color"
+            android:layout_below="@id/manfaat"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentEnd="true"
+            android:textSize="@dimen/fourteen_sp" />
+
+        <TextView
+            android:id="@+id/komposisi"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/twentyfour_dp"
+            android:fontFamily="@font/poppins_bold"
+            android:gravity="center"
+            android:text="@string/composition"
+            android:textColor="@color/font_color"
+            android:layout_below="@id/tv_manfaat"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentEnd="true"
+            android:textSize="@dimen/fourteen_sp" />
+
+        <TextView
+            android:id="@+id/tv_komposisi"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/sixteen_dp"
+            android:layout_marginTop="@dimen/sixteen_dp"
+            android:layout_marginEnd="@dimen/sixteen_dp"
+            android:layout_marginBottom="@dimen/sixteen_dp"
+            android:fontFamily="@font/poppins"
+            android:text="@string/load"
+            android:textColor="@color/font_color"
+            android:layout_below="@+id/komposisi"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentEnd="true"
+            android:textSize="@dimen/fourteen_sp" />
+
+    </RelativeLayout>
+
+</androidx.coordinatorlayout.widget.CoordinatorLayout>
