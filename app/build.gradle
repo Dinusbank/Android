@@ -2,7 +2,7 @@ plugins {
     id 'com.android.application'
     id 'kotlin-android'
     id 'kotlin-parcelize'
-//    id 'kotlin-kapt'
+    id 'kotlin-kapt'
 }
 
 android {
@@ -44,8 +44,9 @@ android {
 
 dependencies {
 
-//    kapt "androidx.room:room-compiler:$roomVersion"
-//    implementation "androidx.room:room-runtime:$roomRuntimeVersion"
+    kapt "androidx.room:room-compiler:$roomVersion"
+    implementation "androidx.room:room-runtime:$roomRuntimeVersion"
+    implementation "androidx.paging:paging-runtime:$pagingVersion"
     implementation 'org.tensorflow:tensorflow-lite-gpu:2.3.0'
     implementation 'com.google.android.material:material:1.4.0-beta01'
     implementation "com.squareup.okhttp3:logging-interceptor:4.9.0"

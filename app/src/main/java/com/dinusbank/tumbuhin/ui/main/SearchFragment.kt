@@ -5,19 +5,19 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.dinusbank.tumbuhin.adapter.LeafesAdapter
-import com.dinusbank.tumbuhin.data.remote.responses.ResponseDataLeafes
 import com.dinusbank.tumbuhin.databinding.FragmentSearchBinding
 import com.dinusbank.tumbuhin.viewmodel.SearchViewModel
+import com.dinusbank.tumbuhin.viewmodel.ViewModelFactory
+import com.dinusbank.tumbuhin.vo.Status
 
 class SearchFragment : Fragment() {
 
     private lateinit var binding: FragmentSearchBinding
     private lateinit var searchViewModel: SearchViewModel
-    private lateinit var leafesAdapter: LeafesAdapter
-    private val listLeafes = ArrayList<ResponseDataLeafes>()
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         binding = FragmentSearchBinding.inflate(inflater, container, false)
@@ -27,23 +27,70 @@ class SearchFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        searchViewModel = ViewModelProvider(requireActivity(), ViewModelProvider.NewInstanceFactory())
-            .get(SearchViewModel::class.java)
+        val factory = context?.let { ViewModelFactory.getInstance(it) }
+        searchViewModel = factory?.let { ViewModelProvider(this, it)}!![SearchViewModel::class.java]
 
-        searchViewModel.getLeafes()
+        val leafesAdapter = LeafesAdapter()
 
-        leafesAdapter = LeafesAdapter(mutableListOf<ResponseDataLeafes>() as ArrayList<ResponseDataLeafes>)
+        activity?.let {
+            searchViewModel.getLeafes().observe(it, { leafes ->
+                if (leafes != null){
+                    when(leafes.status){
+                        Status.LOADING -> setProgressLoading(true)
+                        Status.SUCCESS -> {
+                            setProgressLoading(false)
 
-        searchViewModel.getSearchViewModel().observe(requireActivity(), {listDataLeafes ->
-            if (listDataLeafes != null){
-                leafesAdapter.setData(listDataLeafes)
-                setAdapter()
-                setProgressLoading(false)
-                binding.leafesAdapter.visibility = View.VISIBLE
+                            leafesAdapter.submitList(leafes.data)
+
+                            with(binding.leafesAdapter){
+                                adapter = leafesAdapter
+                                visibility = View.VISIBLE
+                                this.layoutManager = LinearLayoutManager(context)
+                                leafesAdapter.notifyDataSetChanged()
+                            }
+                        }
+                        Status.ERROR -> {
+                            setProgressLoading(false)
+                            Toast.makeText(context, "Terjadi Kesalahan", Toast.LENGTH_SHORT).show()
+                        }
+                    }
+                }
+            })
+
+            with(binding.searchView){
+                onActionViewExpanded()
+                setIconifiedByDefault(true)
+                clearFocus()
+
+                setOnQueryTextListener(object : androidx.appcompat.widget.SearchView.OnQueryTextListener{
+                    override fun onQueryTextSubmit(query: String): Boolean {
+
+                        return false
+                    }
+
+                    override fun onQueryTextChange(newText: String): Boolean {
+
+                        val searchQuery = "%$query%"
+
+                        searchViewModel.getSearch(searchQuery).observe(it, { leafes ->
+                            leafesAdapter.submitList(leafes)
+
+                            if (leafes.isEmpty()){
+                                binding.leafesAdapter.visibility = View.GONE
+                                binding.imageView3.visibility = View.VISIBLE
+                                binding.textNull.visibility = View.VISIBLE
+                            } else{
+                                binding.leafesAdapter.visibility = View.VISIBLE
+                                binding.imageView3.visibility = View.GONE
+                                binding.textNull.visibility = View.GONE
+                            }
+                        })
+
+                        return true
+                    }
+                })
             }
-        })
-
-        setSearchView()
+        }
     }
 
     private fun setProgressLoading(state: Boolean){
@@ -51,38 +98,6 @@ class SearchFragment : Fragment() {
             binding.progressBar.visibility = View.VISIBLE
         } else{
             binding.progressBar.visibility = View.GONE
-        }
-    }
-
-    private fun setAdapter(){
-        with(binding.leafesAdapter){
-            adapter = leafesAdapter
-            leafesAdapter = LeafesAdapter(listLeafes)
-            layoutManager = LinearLayoutManager(context)
-            leafesAdapter.notifyDataSetChanged()
-        }
-    }
-
-    private fun setSearchView(){
-        with(binding.searchView){
-            onActionViewExpanded()
-            setIconifiedByDefault(true)
-            clearFocus()
-
-            setOnQueryTextListener(object : androidx.appcompat.widget.SearchView.OnQueryTextListener{
-                override fun onQueryTextSubmit(query: String?): Boolean {
-
-                    return false
-                }
-
-                override fun onQueryTextChange(newText: String?): Boolean {
-                    listLeafes.clear()
-                    newText?.let { searchViewModel.getSearch(it) }
-                    leafesAdapter.notifyDataSetChanged()
-
-                    return true
-                }
-            })
         }
     }
 }

@@ -2,34 +2,38 @@ package com.dinusbank.tumbuhin.adapter
 
 import android.content.Intent
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
+import androidx.paging.PagedListAdapter
+import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
-import com.dinusbank.tumbuhin.R
-import com.dinusbank.tumbuhin.data.remote.responses.ResponseDataLeafes
+import com.dinusbank.tumbuhin.data.local.entity.LeafesEntities
 import com.dinusbank.tumbuhin.databinding.ItemPlantsBinding
-import com.dinusbank.tumbuhin.ui.ResultActivity
-import com.dinusbank.tumbuhin.ui.ResultActivity.Companion.ACTION_PICKER
-import com.dinusbank.tumbuhin.ui.ResultActivity.Companion.LEAFES
+import com.dinusbank.tumbuhin.ui.result.DetailsActivity
+import com.dinusbank.tumbuhin.ui.result.DetailsActivity.Companion.LEAFES
 
-class LeafesAdapter(private val listDataLeafes: ArrayList<ResponseDataLeafes>): RecyclerView.Adapter<LeafesAdapter.LeafesViewHolder>() {
+class LeafesAdapter: PagedListAdapter<LeafesEntities, LeafesAdapter.LeafesViewHolder>(DIFF_CALLBACK) {
 
-    fun setData(responseDataLeafes: ArrayList<ResponseDataLeafes>){
-        listDataLeafes.addAll(responseDataLeafes)
-        notifyDataSetChanged()
+    companion object{
+        private val DIFF_CALLBACK = object : DiffUtil.ItemCallback<LeafesEntities>() {
+            override fun areItemsTheSame(oldItem: LeafesEntities, newItem: LeafesEntities): Boolean {
+                return oldItem.id == newItem.id
+            }
+
+            override fun areContentsTheSame(oldItem: LeafesEntities, newItem: LeafesEntities): Boolean {
+                return oldItem == newItem
+            }
+
+        }
     }
 
-    inner class LeafesViewHolder(itemView: View): RecyclerView.ViewHolder(itemView) {
-        private val binding = ItemPlantsBinding.bind(itemView)
-
-        fun bind(responseDataLeafes: ResponseDataLeafes){
-            binding.tvLeafesname.text = responseDataLeafes.name
-            binding.tvLeafesnameItalic.text = responseDataLeafes.latinName
+    class LeafesViewHolder(private val binding: ItemPlantsBinding): RecyclerView.ViewHolder(binding.root) {
+        fun bind(leafesEntities: LeafesEntities){
+            binding.tvLeafesname.text = leafesEntities.name
+            binding.tvLeafesnameItalic.text = leafesEntities.latinName
 
             itemView.setOnClickListener {
-                val intent = Intent(itemView.context, ResultActivity::class.java)
-                intent.putExtra(ACTION_PICKER, 3)
-                intent.putExtra(LEAFES, responseDataLeafes)
+                val intent = Intent(itemView.context, DetailsActivity::class.java)
+                intent.putExtra(LEAFES, leafesEntities)
 
                 itemView.context.startActivity(intent)
             }
@@ -37,15 +41,14 @@ class LeafesAdapter(private val listDataLeafes: ArrayList<ResponseDataLeafes>): 
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): LeafesViewHolder {
-        val view: View = LayoutInflater.from(parent.context).inflate(R.layout.item_plants, parent, false)
-        return LeafesViewHolder(view)
+        val itemPlantsBinding = ItemPlantsBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+        return LeafesViewHolder(itemPlantsBinding)
     }
 
     override fun onBindViewHolder(holder: LeafesViewHolder, position: Int) {
-        holder.bind(listDataLeafes[position])
-    }
-
-    override fun getItemCount(): Int {
-        return listDataLeafes.size
+        val leafesItem = getItem(position)
+        if (leafesItem != null){
+            holder.bind(leafesItem)
+        }
     }
 }

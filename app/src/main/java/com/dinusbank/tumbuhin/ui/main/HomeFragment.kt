@@ -1,3 +1,5 @@
+@file:Suppress("DEPRECATION")
+
 package com.dinusbank.tumbuhin.ui.main
 
 import android.Manifest
@@ -12,16 +14,23 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.core.app.ActivityCompat
+import androidx.lifecycle.ViewModelProvider
+import com.dinusbank.tumbuhin.adapter.LeafesAdapter
 import com.dinusbank.tumbuhin.databinding.FragmentHomeBinding
-import com.dinusbank.tumbuhin.ui.ResultActivity
-import com.dinusbank.tumbuhin.ui.ResultActivity.Companion.ACTION_PICKER
-import com.dinusbank.tumbuhin.ui.ResultActivity.Companion.IMAGE_ID
+import com.dinusbank.tumbuhin.ui.result.ResultActivity
+import com.dinusbank.tumbuhin.ui.result.ResultActivity.Companion.ACTION_PICKER
+import com.dinusbank.tumbuhin.ui.result.ResultActivity.Companion.IMAGE_ID
+import com.dinusbank.tumbuhin.viewmodel.SearchViewModel
+import com.dinusbank.tumbuhin.viewmodel.ViewModelFactory
+import com.dinusbank.tumbuhin.vo.Status
 
 class HomeFragment : Fragment() {
 
     private lateinit var binding: FragmentHomeBinding
     private var imageUri: Uri? = null
+    private lateinit var searchViewModel: SearchViewModel
 
     companion object{
         const val PERMISSION_CODE = 100
@@ -37,24 +46,69 @@ class HomeFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        binding.btnUpload.setOnClickListener {
-            if(context?.let { it1 -> ActivityCompat.checkSelfPermission(it1, Manifest.permission.READ_EXTERNAL_STORAGE) }
-                == PERMISSION_DENIED){
-                val permission = arrayOf(Manifest.permission.READ_EXTERNAL_STORAGE)
-                requestPermissions(permission, PERMISSION_CODE)
-            } else{
-                pickImageFromGallery()
-            }
-        }
+        val factory = context?.let { ViewModelFactory.getInstance(it) }
+        searchViewModel = factory?.let { ViewModelProvider(this, it) }!![SearchViewModel::class.java]
 
-        binding.btnCapture.setOnClickListener {
-            if(context?.let { it1 -> ActivityCompat.checkSelfPermission(it1, Manifest.permission.CAMERA) }
-                == PERMISSION_DENIED){
-                val permission = arrayOf(Manifest.permission.CAMERA)
-                requestPermissions(permission, PERMISSION_CODE)
-            } else{
-                captureImage()
-            }
+        val leafesAdapter = LeafesAdapter()
+
+        activity?.let {
+            searchViewModel.getLeafes().observe(it, { leafes ->
+                if (leafes != null){
+                    when(leafes.status){
+                        Status.SUCCESS -> {
+                            showLoading(false)
+
+                            binding.imageView.visibility = View.VISIBLE
+                            binding.textView.visibility = View.VISIBLE
+                            binding.textView2.visibility = View.VISIBLE
+                            binding.btnUpload.visibility = View.VISIBLE
+                            binding.btnCapture.visibility = View.VISIBLE
+
+                            leafesAdapter.submitList(leafes.data)
+
+                            binding.btnUpload.setOnClickListener {
+                                if(context?.let { it1 -> ActivityCompat.checkSelfPermission(it1, Manifest.permission.READ_EXTERNAL_STORAGE) }
+                                    == PERMISSION_DENIED){
+                                    val permission = arrayOf(Manifest.permission.READ_EXTERNAL_STORAGE)
+                                    requestPermissions(permission, PERMISSION_CODE)
+                                } else{
+                                    pickImageFromGallery()
+                                }
+                            }
+
+                            binding.btnCapture.setOnClickListener {
+                                if(context?.let { it1 -> ActivityCompat.checkSelfPermission(it1, Manifest.permission.CAMERA) }
+                                    == PERMISSION_DENIED){
+                                    val permission = arrayOf(Manifest.permission.CAMERA)
+                                    requestPermissions(permission, PERMISSION_CODE)
+                                } else{
+                                    captureImage()
+                                }
+                            }
+                        }
+                        Status.LOADING -> {
+                            showLoading(true)
+
+                            binding.imageView.visibility = View.GONE
+                            binding.textView.visibility = View.GONE
+                            binding.textView2.visibility = View.GONE
+                            binding.btnUpload.visibility = View.GONE
+                            binding.btnCapture.visibility = View.GONE
+                        }
+                        Status.ERROR -> {
+                            Toast.makeText(context, "Data Tidak Tersedia", Toast.LENGTH_LONG).show()
+                        }
+                    }
+                }
+            })
+        }
+    }
+
+    private fun showLoading(state: Boolean){
+        if (state){
+            binding.progressBar.visibility = View.VISIBLE
+        } else{
+            binding.progressBar.visibility = View.GONE
         }
     }
 

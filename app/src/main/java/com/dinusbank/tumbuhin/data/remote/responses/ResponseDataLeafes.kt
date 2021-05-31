@@ -1,13 +1,10 @@
 package com.dinusbank.tumbuhin.data.remote.responses
 
-import android.os.Parcelable
 import com.google.gson.annotations.SerializedName
-import kotlinx.parcelize.Parcelize
 
-@Parcelize
 data class ResponseDataLeafes(
     @field:SerializedName("id")
-    val id: String? = null,
+    val id: Int? = null,
 
     @field:SerializedName("nama")
     val name: String? = null,
@@ -23,4 +20,4 @@ data class ResponseDataLeafes(
 
     @field:SerializedName("gambar")
     val imageLeafes: String? = null
-) : Parcelable
+)

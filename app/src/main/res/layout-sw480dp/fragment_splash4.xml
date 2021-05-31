@@ -1,74 +1,90 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
+<androidx.constraintlayout.widget.ConstraintLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
     android:background="@color/white"
     tools:context=".ui.splash.SplashFragment4">
 
     <ImageView
+        android:id="@+id/imageView11"
         android:layout_width="68dp"
         android:layout_height="31dp"
-        android:src="@drawable/logo_main"
-        android:scaleType="centerCrop"
         android:layout_gravity="end"
         android:layout_marginTop="19dp"
         android:layout_marginEnd="12dp"
-        android:contentDescription="@string/small_logo" />
+        android:contentDescription="@string/small_logo"
+        android:scaleType="centerCrop"
+        android:src="@drawable/logo_main"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <ImageView
+        android:id="@+id/imageView12"
         android:layout_width="match_parent"
-        android:layout_height="304dp"
-        android:layout_marginStart="@dimen/sixteen_dp"
-        android:layout_marginEnd="@dimen/sixteen_dp"
-        android:src="@drawable/manfaat_guidescreen_3"
-        android:layout_marginTop="59dp"
+        android:layout_height="340dp"
         android:layout_gravity="center"
-        android:contentDescription="@string/guide_picture" />
+        android:layout_marginStart="@dimen/sixteen_dp"
+        android:layout_marginTop="59dp"
+        android:layout_marginEnd="@dimen/sixteen_dp"
+        android:contentDescription="@string/guide_picture"
+        android:src="@drawable/manfaat_guidescreen_3"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/imageView11" />
 
     <TextView
+        android:id="@+id/textView5"
         android:layout_width="match_parent"
         android:layout_height="81dp"
-        android:fontFamily="@font/poppins"
-        android:textColor="@color/font_color"
-        android:layout_marginStart="@dimen/sixteen_dp"
-        android:layout_marginEnd="@dimen/sixteen_dp"
-        android:textSize="18sp"
-        android:text="@string/text_starter2"
         android:layout_gravity="center"
+        android:layout_marginStart="@dimen/sixteen_dp"
+        android:layout_marginTop="50dp"
+        android:layout_marginEnd="@dimen/sixteen_dp"
+        android:fontFamily="@font/poppins"
         android:gravity="center"
-        android:layout_marginTop="94dp"/>
+        android:maxLines="3"
+        android:text="@string/text_starter2"
+        android:textColor="@color/font_color"
+        android:textSize="18sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/imageView12" />
 
     <RelativeLayout
+        android:id="@+id/relativeLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="80dp"
         android:layout_marginStart="@dimen/sixteen_dp"
-        android:layout_marginEnd="@dimen/sixteen_dp">
+        android:layout_marginEnd="@dimen/sixteen_dp"
+        android:layout_marginBottom="@dimen/fifty_dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent">
 
         <ImageView
             android:layout_width="70dp"
             android:layout_height="@dimen/sixteen_dp"
-            android:src="@drawable/progress_icon_3"
-            android:scaleType="centerCrop"
             android:layout_alignParentStart="true"
             android:layout_alignParentTop="true"
             android:layout_marginTop="44dp"
-            android:contentDescription="@string/progress_icon" />
+            android:contentDescription="@string/progress_icon"
+            android:scaleType="centerCrop"
+            android:src="@drawable/progress_icon_3" />
 
         <ImageView
             android:id="@+id/btn_next3"
             android:layout_width="60dp"
             android:layout_height="40dp"
-            android:src="@drawable/nextbutton_guidescreen"
-            android:scaleType="centerCrop"
-            android:layout_alignParentEnd="true"
             android:layout_alignParentTop="true"
+            android:layout_alignParentEnd="true"
             android:layout_marginTop="32dp"
-            android:contentDescription="@string/next_button" />
+            android:contentDescription="@string/next_button"
+            android:scaleType="centerCrop"
+            android:src="@drawable/nextbutton_guidescreen" />
 
     </RelativeLayout>
 
-</LinearLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

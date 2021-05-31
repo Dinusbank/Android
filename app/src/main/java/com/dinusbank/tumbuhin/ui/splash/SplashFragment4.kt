@@ -5,24 +5,22 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.navigation.Navigation
+import android.widget.ImageView
 import androidx.navigation.findNavController
 import com.dinusbank.tumbuhin.R
-import com.dinusbank.tumbuhin.databinding.FragmentSplash4Binding
 
 class SplashFragment4 : Fragment() {
 
-    private lateinit var binding: FragmentSplash4Binding
-
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
-        binding = FragmentSplash4Binding.inflate(inflater, container, false)
-        return binding.root
+        return inflater.inflate(R.layout.fragment_splash4, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        binding.btnNext3.setOnClickListener {
+        val btnNext3 = activity?.findViewById<ImageView>(R.id.btn_next3)
+
+        btnNext3?.setOnClickListener {
             view.findNavController().navigate(R.id.action_splashFragment4_to_mainActivity)
         }
     }

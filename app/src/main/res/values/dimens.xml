@@ -14,4 +14,5 @@
     <dimen name="twelve_sp">12sp</dimen>
     <dimen name="ten_sp">10sp</dimen>
     <dimen name="twentyfour_sp">24sp</dimen>
+    <dimen name="fifty_dp">50dp</dimen>
 </resources>

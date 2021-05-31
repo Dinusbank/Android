@@ -25,7 +25,8 @@ task clean(type: Delete) {
     delete rootProject.buildDir
 }
 
-//ext{
-//    roomVersion = '2.2.3'
-//    roomRuntimeVersion = '2.2.5'
-//}
+ext{
+    roomVersion = '2.2.3'
+    roomRuntimeVersion = '2.2.5'
+    pagingVersion = '2.1.1'
+}

@@ -1,52 +1,15 @@
 package com.dinusbank.tumbuhin.viewmodel
 
-import android.util.Log
 import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.dinusbank.tumbuhin.api.ApiCall
-import com.dinusbank.tumbuhin.data.remote.responses.ResponseDataLeafes
-import com.dinusbank.tumbuhin.data.remote.responses.ResponseLeafes
-import retrofit2.Call
-import retrofit2.Callback
-import retrofit2.Response
+import androidx.paging.PagedList
+import com.dinusbank.tumbuhin.data.LeafesRepository
+import com.dinusbank.tumbuhin.data.local.entity.LeafesEntities
+import com.dinusbank.tumbuhin.vo.Resource
 
-class SearchViewModel: ViewModel() {
+class SearchViewModel(private val leafesRepository: LeafesRepository): ViewModel() {
 
-    val listLeafesMutable = MutableLiveData<ArrayList<ResponseDataLeafes>>()
+    fun getLeafes(): LiveData<Resource<PagedList<LeafesEntities>>> = leafesRepository.getLeafes()
 
-    fun getLeafes(){
-        val response = ApiCall.leafesApiService.getLeafes()
-        response.enqueue(object : Callback<ResponseLeafes>{
-            override fun onResponse(call: Call<ResponseLeafes>, response: Response<ResponseLeafes>) {
-                val listDataLeafes = response.body()?.result as ArrayList<ResponseDataLeafes>
-                listLeafesMutable.postValue(listDataLeafes)
-            }
-
-            override fun onFailure(call: Call<ResponseLeafes>, t: Throwable) {
-                Log.e("SearchViewModel", "Data Tidak Ditemukan")
-            }
-
-        })
-    }
-
-    fun getSearch(search: String){
-        val response = ApiCall.leafesApiService.getSearch(search)
-        response.enqueue(object : Callback<ResponseLeafes>{
-            override fun onResponse(call: Call<ResponseLeafes>, response: Response<ResponseLeafes>) {
-                val listDataLeafes = response.body()?.result
-
-                listLeafesMutable.postValue(listDataLeafes)
-            }
-
-            override fun onFailure(call: Call<ResponseLeafes>, t: Throwable) {
-                Log.e("SearchViewModel", "Data Tidak Ditemukan")
-            }
-
-        })
-    }
-
-    fun getSearchViewModel(): LiveData<ArrayList<ResponseDataLeafes>>{
-        return listLeafesMutable
-    }
+    fun getSearch(search: String): LiveData<PagedList<LeafesEntities>> = leafesRepository.getLeafesSearch(search)
 }
