@@ -70,47 +70,16 @@ class ResultActivity : AppCompatActivity() {
         val bundle: Bundle? = intent.extras
 
         if (bundle != null){
-            val setImage: Uri = Uri.parse(bundle.getString(IMAGE_ID))
+            val setImage = Uri.parse(bundle.getString(IMAGE_ID))
             val imageBitmap = MediaStore.Images.Media.getBitmap(this.contentResolver, setImage)
 
             if (imageBitmap != null){
-                val model = Medleaf.newInstance(this)
-
-                val imageProcessor = ImageProcessor.Builder()
-                    .add(ResizeOp(224,224, ResizeOp.ResizeMethod.BILINEAR))
-                    .build()
-
-                var tImage = TensorImage(DataType.UINT8)
-                tImage.load(imageBitmap)
-                tImage = imageProcessor.process(tImage)
-
-                val outputs = model.process(tImage)
-                val probability = outputs.probabilityAsCategoryList
-
-                val max = probability.maxByOrNull { it.score }
-
-                if (max != null) {
-                    val percentage = (max.score / 1) * 100
-
-                    (DecimalFormat("##.#").format(percentage) + " %").also { binding.tvAccuracy.text = it }
-                    binding.tvLeafesnameItalic.text = max.label
-
-//                    if (percentage > 30){
-//                        (DecimalFormat("##.#").format(percentage) + " %").also { binding.tvAccuracy.text = it }
-//                        binding.tvLeafesnameItalic.text = max.label
-//                    } else{
-//                        //SET ERROR MESSAGE
-//                    }
-                }
-
-                max?.label?.let { getData(it) }
-
-                model.close()
-
                 Glide.with(this)
                     .load(imageBitmap)
-                    .override(312,416)
+                    .override(500,800)
                     .into(binding.ivLeafes)
+
+                setTensorflowModel(imageBitmap)
             }
         }
     }
@@ -119,43 +88,12 @@ class ResultActivity : AppCompatActivity() {
         val imageBitmap: Bitmap? = intent.getParcelableExtra(IMAGE_ID)
 
         if (imageBitmap != null){
-            val model = Medleaf.newInstance(this)
-
-            val imageProcessor = ImageProcessor.Builder()
-                .add(ResizeOp(224,224, ResizeOp.ResizeMethod.BILINEAR))
-                .build()
-
-            var tImage = TensorImage(DataType.UINT8)
-            tImage.load(imageBitmap)
-            tImage = imageProcessor.process(tImage)
-
-            val outputs = model.process(tImage)
-            val probability = outputs.probabilityAsCategoryList
-
-            val max = probability.maxByOrNull { it.score }
-
-            if (max != null) {
-                val percentage = (max.score / 1) * 100
-
-                (DecimalFormat("##.#").format(percentage) + " %").also { binding.tvAccuracy.text = it }
-                binding.tvLeafesnameItalic.text = max.label
-
-//                if (percentage > 30){
-//                    (DecimalFormat("##.#").format(percentage) + " %").also { binding.tvAccuracy.text = it }
-//                    binding.tvLeafesnameItalic.text = max.label
-//                } else{
-//                    //SET ERROR MESSAGE
-//                }
-            }
-
-            max?.label?.let { getData(it) }
-
-            model.close()
-
             Glide.with(this)
                 .load(imageBitmap)
-                .override(312,416)
+                .override(500,800)
                 .into(binding.ivLeafes)
+
+            setTensorflowModel(imageBitmap)
         }
     }
 
@@ -440,5 +378,52 @@ class ResultActivity : AppCompatActivity() {
                 })
             }
         }
+    }
+
+    private fun setTensorflowModel(imageBitmap: Bitmap){
+        val model = Medleaf.newInstance(this)
+
+        val imageProcessor = ImageProcessor.Builder()
+            .add(ResizeOp(224,224, ResizeOp.ResizeMethod.BILINEAR))
+            .build()
+
+        var tImage = TensorImage(DataType.UINT8)
+        tImage.load(imageBitmap)
+        tImage = imageProcessor.process(tImage)
+
+        val outputs = model.process(tImage)
+        val probability = outputs.probabilityAsCategoryList
+
+        val max = probability.maxByOrNull { it.score }
+
+        if (max != null) {
+            val percentage = (max.score / 1) * 100
+
+            if (percentage > 30){
+                (DecimalFormat("##.#").format(percentage) + " %").also { binding.tvAccuracy.text = it }
+                binding.tvLeafesnameItalic.text = max.label
+                setNormalVisibility()
+            } else{
+                setErrorVisibility()
+            }
+        }
+
+        max?.label?.let { getData(it) }
+
+        model.close()
+    }
+
+    private fun setErrorVisibility(){
+        binding.icErrormsg.visibility = View.VISIBLE
+        binding.tvErrormsg.visibility = View.VISIBLE
+        binding.ivLeafes.visibility = View.GONE
+        binding.sheet.visibility = View.GONE
+    }
+
+    private fun setNormalVisibility(){
+        binding.icErrormsg.visibility = View.GONE
+        binding.tvErrormsg.visibility = View.GONE
+        binding.ivLeafes.visibility = View.VISIBLE
+        binding.sheet.visibility = View.VISIBLE
     }
 }

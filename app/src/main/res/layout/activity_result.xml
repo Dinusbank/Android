@@ -30,14 +30,40 @@
         android:contentDescription="@string/small_logo" />
 
     <ImageView
+        android:id="@+id/ic_errormsg"
+        android:layout_width="wrap_content"
+        android:layout_height="300dp"
+        android:layout_marginStart="@dimen/sixteen_dp"
+        android:layout_marginEnd="@dimen/sixteen_dp"
+        android:visibility="gone"
+        android:layout_marginTop="140dp"
+        android:src="@drawable/ic_scanerror"
+        android:contentDescription="@string/notfound_message" />
+
+    <TextView
+        android:id="@+id/tv_errormsg"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textSize="@dimen/fourteen_sp"
+        android:textColor="@color/font_color"
+        android:layout_marginTop="470dp"
+        android:layout_marginStart="@dimen/sixteen_dp"
+        android:layout_marginEnd="@dimen/sixteen_dp"
+        android:fontFamily="@font/poppins"
+        android:text="@string/notfound_message"
+        android:visibility="gone"
+        android:gravity="center"/>
+
+    <ImageView
         android:id="@+id/iv_leafes"
-        android:layout_width="312dp"
-        android:layout_height="416dp"
+        android:layout_width="350dp"
+        android:layout_height="400dp"
+        android:layout_marginStart="@dimen/sixteen_dp"
+        android:layout_marginEnd="@dimen/sixteen_dp"
         android:layout_gravity="center_horizontal"
         android:contentDescription="@string/image_leafes"
         android:src="@drawable/leafes_preview"
-        android:layout_marginTop="80dp"
-        android:visibility="gone"
+        android:layout_marginTop="110dp"
         app:layout_constraintTop_toBottomOf="@+id/btn_back" />
 
     <ProgressBar

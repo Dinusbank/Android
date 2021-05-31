@@ -54,4 +54,8 @@
     <string name="search_hint">Cari Jenis Penyakit atau Tumbuhan Herbal…</string>
     <string name="load">Load …</string>
     <string name="percentage">100%</string>
+    <string name="notfound_message">
+        Ups.. Pastikan gambar yang kamu ambil
+        \ndalam kondisi cukup cahaya ya…
+        \natau coba lagi dengan objek lain</string>
 </resources>
