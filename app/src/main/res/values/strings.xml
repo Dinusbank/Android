@@ -8,48 +8,32 @@
     <string name="tumbuhin_logo">Tumbuhin Logo</string>
     <string name="project_by">
         A Project by
-        <br>
-        Dinusbank Team
-        </br>
+        \nDinusbank Team
     </string>
     <string name="splash2_text">
         Unggah atau Ambil gambar
-        <br>
-        tanaman disekitarmu…
-        </br>
+        \ntanaman disekitarmu…
     </string>
     <string name="unggah_teks">
         Unggah atau Ambil gambar
-        <br>
-        tanaman disekitarmu
-        </br>
+        \ntanaman disekitarmu
     </string>
     <string name="start_detect">Yuk mulai Deteksi!</string>
     <string name="start">Mulai</string>
     <string name="text_starter">
         ..atau cari tanaman yang
-        <br>
-        mungkin bisa jadi solusi atas
-        </br>
-        <br>
-        keluhanmu…
-        </br>
+        \nmungkin bisa jadi solusi atas
+        \nkeluhanmu…
     </string>
     <string name="text_starter2">
         …dan simsalabim,
-        <br>
-        kamu bisa tahu apa saja
-        </br>
-        <br>
-        manfaat tanaman tersebut!
-        </br>
+        \nkamu bisa tahu apa saja
+        \nmanfaat tanaman tersebut!
     </string>
     <string name="desc_app">Versi 1.0.0 | TUMBUHIN APP</string>
     <string name="search_error">
-        Ups… Pencarian tidak ditemukan, silahkan coba
-        <br>
-        lagi dengan kata kunci lain
-        </br>
+        \nUps… Pencarian tidak ditemukan, silahkan coba
+        \nlagi dengan kata kunci lain
     </string>
     <string name="title_home">Home</string>
     <string name="title_search">Search</string>
@@ -57,7 +41,6 @@
     <string name="back_button">Back Button</string>
     <string name="small_logo">Small Logo</string>
     <string name="rectangle">rectangle</string>
-    <string name="lorem_ipsum">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec pulvinar convallis sodales. Fusce et ligula nec diam pulvinar placerat. Vestibulum pellentesque nisl nec sodales hendrerit. Nunc ultricies risus nisi, et consequat tortor tincidunt eu. Mauris suscipit, lectus sed condimentum consectetur, risus libero hendrerit lectus, ut varius magna turpis at ligula. Donec eget vulputate nulla, a ultricies purus. Nam ac varius tellus. Cras sit amet sapien mollis nulla dignissim finibus. Curabitur tempor eros augue, sit amet varius purus tincidunt nec. Etiam mollis mi felis, et gravida sapien semper vel. In tincidunt, nunc at varius luctus, nibh justo malesuada velit, ac blandit erat nibh nec mi.</string>
     <string name="start_detection">Start Detection</string>
     <string name="error_image">Error Image</string>
     <string name="guide_picture">Guide Picture</string>
@@ -67,9 +50,7 @@
     <string name="latin_names">Nama Latin Tumbuhan</string>
     <string name="names_plant">Nama Tumbuhan</string>
     <string name="arrow_right">Arrow Right</string>
-    <string name="manfaat_example">Kesehatan gigi, Mengobati tukak lambung, Mencegah kanker, Mengusir hama, Mengusir ketombe, Menghilangkan kutu rambut, Mencegah penuaan dini.</string>
     <string name="composition">Komposisi Tumbuhan</string>
-    <string name="composition_example">mengandung senyawa golongan flavonoid, tannin, saponin, terpenoid, alkaloid, asam lemak, steroid dan triterpenoid.</string>
     <string name="search_hint">Cari Jenis Penyakit atau Tumbuhan Herbal…</string>
     <string name="load">Load …</string>
     <string name="percentage">100%</string>

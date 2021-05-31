@@ -37,13 +37,14 @@
 
     <TextView
         android:id="@+id/textView4"
-        android:layout_width="match_parent"
-        android:layout_height="54dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:layout_marginStart="@dimen/sixteen_dp"
         android:layout_marginTop="41dp"
         android:layout_marginEnd="@dimen/sixteen_dp"
         android:fontFamily="@font/poppins"
+        android:textAlignment="center"
         android:gravity="center"
         android:maxLines="2"
         android:text="@string/splash2_text"
