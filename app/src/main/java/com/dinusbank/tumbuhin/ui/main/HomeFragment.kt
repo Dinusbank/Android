@@ -6,9 +6,9 @@ import android.Manifest
 import android.app.Activity
 import android.content.Intent
 import android.content.pm.PackageManager.*
-import android.graphics.Bitmap
 import android.net.Uri
 import android.os.Bundle
+import android.os.Environment
 import android.provider.MediaStore
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -16,6 +16,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.core.app.ActivityCompat
+import androidx.core.content.FileProvider
 import androidx.lifecycle.ViewModelProvider
 import com.dinusbank.tumbuhin.adapter.LeafesAdapter
 import com.dinusbank.tumbuhin.databinding.FragmentHomeBinding
@@ -25,12 +26,17 @@ import com.dinusbank.tumbuhin.ui.result.ResultActivity.Companion.IMAGE_ID
 import com.dinusbank.tumbuhin.viewmodel.SearchViewModel
 import com.dinusbank.tumbuhin.viewmodel.ViewModelFactory
 import com.dinusbank.tumbuhin.vo.Status
+import java.io.*
+import java.text.SimpleDateFormat
+import java.util.*
+import kotlin.jvm.Throws
 
 class HomeFragment : Fragment() {
 
     private lateinit var binding: FragmentHomeBinding
     private var imageUri: Uri? = null
     private lateinit var searchViewModel: SearchViewModel
+    private lateinit var photoPath: String
 
     companion object{
         const val PERMISSION_CODE = 100
@@ -108,6 +114,28 @@ class HomeFragment : Fragment() {
         }
     }
 
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+
+        if (resultCode == Activity.RESULT_OK && requestCode == PICK_IMAGE_GALLERY){
+            imageUri = data?.data
+
+            val intent = Intent(activity, ResultActivity::class.java)
+            intent.putExtra(IMAGE_ID, imageUri.toString())
+            intent.putExtra(ACTION_PICKER, 1)
+
+            startActivity(intent)
+        } else if (resultCode == Activity.RESULT_OK && requestCode == CAPTURE_IMAGE){
+            addImageToGallery()
+
+            val intent = Intent(activity, ResultActivity::class.java)
+            intent.putExtra(IMAGE_ID, photoPath)
+            intent.putExtra(ACTION_PICKER, 2)
+
+            startActivity(intent)
+        }
+    }
+
     private fun showLoading(state: Boolean){
         if (state){
             binding.progressBar.visibility = View.VISIBLE
@@ -123,29 +151,44 @@ class HomeFragment : Fragment() {
     }
 
     private fun captureImage(){
-        val intent = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
-        startActivityForResult(intent, CAPTURE_IMAGE)
+        Intent(MediaStore.ACTION_IMAGE_CAPTURE).also { imgIntent ->
+            imgIntent.resolveActivity(context?.packageManager!!)?.also {
+                val photo: File? =
+                    try {
+                        createImage()
+                    } catch (e: IOException){
+                        null
+                    }
+
+                photo?.also {
+                    imageUri = FileProvider.getUriForFile(
+                        requireContext(),
+                        "com.dinusbank.tumbuhin.ui.main.HomeFragment",
+                        it
+                    )
+
+                    imgIntent.putExtra(MediaStore.EXTRA_OUTPUT, imageUri)
+                    startActivityForResult(imgIntent, CAPTURE_IMAGE)
+                }
+            }
+        }
     }
 
-    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        super.onActivityResult(requestCode, resultCode, data)
+    @Throws(IOException::class)
+    private fun createImage(): File {
+        val currentTime: String = SimpleDateFormat("yyyyMMdd_HHmmss").format(Date())
+        val dir: File? = context?.getExternalFilesDir(Environment.DIRECTORY_PICTURES)
 
-        if (resultCode == Activity.RESULT_OK && requestCode == PICK_IMAGE_GALLERY){
-            imageUri = data?.data
+        return File.createTempFile("JPEG_${currentTime}", ".jpg", dir).apply {
+            photoPath = absolutePath
+        }
+    }
 
-            val intent = Intent(activity, ResultActivity::class.java)
-            intent.putExtra(IMAGE_ID, imageUri.toString())
-            intent.putExtra(ACTION_PICKER, 1)
-
-            startActivity(intent)
-        } else if (resultCode == Activity.RESULT_OK && requestCode == CAPTURE_IMAGE){
-            val imageBitmap = data?.extras?.get("data") as Bitmap?
-
-            val intent = Intent(activity, ResultActivity::class.java)
-            intent.putExtra(IMAGE_ID, imageBitmap)
-            intent.putExtra(ACTION_PICKER, 2)
-
-            startActivity(intent)
+    private fun addImageToGallery() {
+        Intent(Intent.ACTION_MEDIA_SCANNER_SCAN_FILE).also {
+            val imgFile = File(photoPath)
+            it.data = Uri.fromFile(imgFile)
+            context?.sendBroadcast(it)
         }
     }
 }

@@ -56,8 +56,9 @@
 
     <ImageView
         android:id="@+id/iv_leafes"
-        android:layout_width="350dp"
-        android:layout_height="400dp"
+        android:layout_width="380dp"
+        android:layout_height="380dp"
+        android:scaleType="centerCrop"
         android:layout_marginStart="@dimen/sixteen_dp"
         android:layout_marginEnd="@dimen/sixteen_dp"
         android:layout_gravity="center_horizontal"

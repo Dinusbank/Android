@@ -3,6 +3,7 @@
 package com.dinusbank.tumbuhin.ui.result
 
 import android.graphics.Bitmap
+import android.graphics.BitmapFactory
 import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -19,7 +20,10 @@ import org.tensorflow.lite.DataType
 import org.tensorflow.lite.support.image.ImageProcessor
 import org.tensorflow.lite.support.image.TensorImage
 import org.tensorflow.lite.support.image.ops.ResizeOp
+import java.io.File
 import java.text.DecimalFormat
+import kotlin.math.max
+import kotlin.math.min
 
 class ResultActivity : AppCompatActivity() {
 
@@ -68,7 +72,7 @@ class ResultActivity : AppCompatActivity() {
             if (imageBitmap != null){
                 Glide.with(this)
                     .load(imageBitmap)
-                    .override(500,800)
+                    .override(896,896)
                     .into(binding.ivLeafes)
 
                 setTensorflowModel(imageBitmap)
@@ -77,15 +81,35 @@ class ResultActivity : AppCompatActivity() {
     }
 
     private fun setImageFromCamera(){
-        val imageBitmap: Bitmap? = intent.getParcelableExtra(IMAGE_ID)
+        val bundle: Bundle? = intent.extras
 
-        if (imageBitmap != null){
-            Glide.with(this)
-                .load(imageBitmap)
-                .override(500,800)
-                .into(binding.ivLeafes)
+        if (bundle != null){
+            val photoPath = Uri.parse(bundle.getString(IMAGE_ID))
 
-            setTensorflowModel(imageBitmap)
+            val targetW = 896
+            val targetH = 896
+
+            val bmOptions = BitmapFactory.Options().apply {
+                inJustDecodeBounds = true
+
+                val photoW: Int = outWidth
+                val photoH: Int = outHeight
+
+                val scaleFactor: Int = max(1, min(photoW / targetW, photoH / targetH))
+
+                inJustDecodeBounds = false
+                inSampleSize = scaleFactor
+                inPurgeable = true
+            }
+
+            BitmapFactory.decodeFile(photoPath.toString(), bmOptions)?.also { bitmap ->
+                Glide.with(this)
+                    .load(bitmap)
+                    .override(896,896)
+                    .into(binding.ivLeafes)
+
+                setTensorflowModel(bitmap)
+            }
         }
     }
 
@@ -426,4 +450,18 @@ class ResultActivity : AppCompatActivity() {
             }
         }
     }
+
+    override fun onBackPressed() {
+        super.onBackPressed()
+
+        val bundle: Bundle? = intent.extras
+
+        if (bundle != null) {
+            val photoPath = Uri.parse(bundle.getString(IMAGE_ID))
+            val imgFile = File(photoPath.toString())
+
+            imgFile.delete()
+        }
+    }
+
 }

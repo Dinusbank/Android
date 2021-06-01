@@ -32,13 +32,13 @@
     <ImageView
         android:id="@+id/iv_leafes"
         android:layout_width="match_parent"
-        android:layout_height="300dp"
+        android:layout_height="380dp"
         android:layout_marginStart="@dimen/sixteen_dp"
         android:layout_marginEnd="@dimen/sixteen_dp"
         android:layout_gravity="center_horizontal"
         android:contentDescription="@string/image_leafes"
         android:src="@drawable/leafes_preview"
-        android:layout_marginTop="80dp"
+        android:layout_marginTop="100dp"
         android:visibility="visible"
         app:layout_constraintTop_toBottomOf="@+id/btn_back" />
 
