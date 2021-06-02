@@ -3,6 +3,7 @@
 package com.dinusbank.tumbuhin.ui.main
 
 import android.Manifest
+import android.annotation.SuppressLint
 import android.app.Activity
 import android.content.Intent
 import android.content.pm.PackageManager.*
@@ -150,6 +151,7 @@ class HomeFragment : Fragment() {
         startActivityForResult(intent, PICK_IMAGE_GALLERY)
     }
 
+    @SuppressLint("QueryPermissionsNeeded")
     private fun captureImage(){
         Intent(MediaStore.ACTION_IMAGE_CAPTURE).also { imgIntent ->
             imgIntent.resolveActivity(context?.packageManager!!)?.also {
@@ -176,7 +178,7 @@ class HomeFragment : Fragment() {
 
     @Throws(IOException::class)
     private fun createImage(): File {
-        val currentTime: String = SimpleDateFormat("yyyyMMdd_HHmmss").format(Date())
+        val currentTime: String = SimpleDateFormat("yyyyMMdd_HHmmss", Locale.getDefault()).format(Date())
         val dir: File? = context?.getExternalFilesDir(Environment.DIRECTORY_PICTURES)
 
         return File.createTempFile("JPEG_${currentTime}", ".jpg", dir).apply {

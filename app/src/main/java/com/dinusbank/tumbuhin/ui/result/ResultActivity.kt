@@ -75,7 +75,7 @@ class ResultActivity : AppCompatActivity() {
                     .override(896,896)
                     .into(binding.ivLeafes)
 
-                setTensorflowModel(imageBitmap)
+                setTensorflowModel(imageBitmap, bundle)
             }
         }
     }
@@ -108,12 +108,12 @@ class ResultActivity : AppCompatActivity() {
                     .override(896,896)
                     .into(binding.ivLeafes)
 
-                setTensorflowModel(bitmap)
+                setTensorflowModel(bitmap, bundle)
             }
         }
     }
 
-    private fun setTensorflowModel(imageBitmap: Bitmap){
+    private fun setTensorflowModel(imageBitmap: Bitmap, bundle: Bundle?){
         val model = Medleaf.newInstance(this)
 
         val imageProcessor = ImageProcessor.Builder()
@@ -133,7 +133,7 @@ class ResultActivity : AppCompatActivity() {
             val percentage = (max.score / 1) * 100
 
             if (percentage > 30){
-                (DecimalFormat("##.#").format(percentage) + " %").also { binding.tvAccuracy.text = it }
+                (DecimalFormat("##").format(percentage) + " %").also { binding.tvAccuracy.text = it }
                 binding.tvLeafesnameItalic.text = max.label
                 setNormalVisibility()
             } else{
@@ -144,6 +144,13 @@ class ResultActivity : AppCompatActivity() {
         max?.label?.let { getData(it) }
 
         model.close()
+
+        if (bundle != null) {
+            val photoPath = Uri.parse(bundle.getString(IMAGE_ID))
+            val imgFile = File(photoPath.toString())
+
+            imgFile.delete()
+        }
     }
 
     private fun setErrorVisibility(){
@@ -450,18 +457,4 @@ class ResultActivity : AppCompatActivity() {
             }
         }
     }
-
-    override fun onBackPressed() {
-        super.onBackPressed()
-
-        val bundle: Bundle? = intent.extras
-
-        if (bundle != null) {
-            val photoPath = Uri.parse(bundle.getString(IMAGE_ID))
-            val imgFile = File(photoPath.toString())
-
-            imgFile.delete()
-        }
-    }
-
 }
