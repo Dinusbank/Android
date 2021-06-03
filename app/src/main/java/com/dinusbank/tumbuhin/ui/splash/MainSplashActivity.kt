@@ -21,11 +21,11 @@ class MainSplashActivity : AppCompatActivity() {
     override fun onResume() {
         super.onResume()
 
-        val sharedpreferences = getSharedPreferences(getString(R.string.app_name), Context.MODE_PRIVATE)
+        val sharedPreferences = getSharedPreferences(getString(R.string.app_name), Context.MODE_PRIVATE)
 
-        if (!sharedpreferences.getBoolean(prevStarted, false)) {
-            val editor = sharedpreferences.edit()
-            editor.putBoolean(prevStarted, true)
+        if (sharedPreferences.getBoolean(prevStarted, true)) {
+            val editor = sharedPreferences.edit()
+            editor.putBoolean(prevStarted, false)
             editor.apply()
         } else {
             moveToSecondary()
