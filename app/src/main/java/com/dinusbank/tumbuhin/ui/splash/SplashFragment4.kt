@@ -11,6 +11,10 @@ import com.dinusbank.tumbuhin.R
 
 class SplashFragment4 : Fragment() {
 
+    companion object{
+        var setPreference = true
+    }
+
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         return inflater.inflate(R.layout.fragment_splash4, container, false)
     }
@@ -22,6 +26,8 @@ class SplashFragment4 : Fragment() {
 
         btnNext3?.setOnClickListener {
             view.findNavController().navigate(R.id.action_splashFragment4_to_mainActivity)
+
+            setPreference = false
         }
     }
 }
