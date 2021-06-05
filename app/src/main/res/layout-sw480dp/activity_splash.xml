@@ -9,17 +9,16 @@
     tools:context=".ui.splash.SplashActivity">
 
     <ImageView
-        android:id="@+id/imageView6"
-        android:layout_width="394dp"
-        android:layout_height="233dp"
+        android:layout_width="384dp"
+        android:layout_height="213dp"
         android:layout_gravity="center"
-        android:layout_marginTop="213dp"
         android:contentDescription="@string/tumbuhin_logo"
         android:scaleType="centerCrop"
         android:src="@drawable/logo_main"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_marginTop="213dp"/>
 
     <TextView
         android:layout_width="wrap_content"
